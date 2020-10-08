@@ -14,8 +14,10 @@ public class Board
 	private boolean m_gameOver;
 	private Player m_activePlayer;
 	private Player m_winner;
-	private int m_stackStones;
-	private int m_stonesLost;
+	private int m_stackStones_white;
+	private int m_stackStones_black;
+	private int m_stonesLost_white;
+	private int m_stonesLost_black;
 
 	/**
 	 * Default Zustände des Boards GameOver Zustand auf false neues 2 Dimensionales
@@ -28,7 +30,10 @@ public class Board
 		m_grid = new Player[3][3][3];
 		m_activePlayer = Player.WHITE;
 		m_winner = Player.NONE;
-		m_stackStones = 9;
+		m_stackStones_white = 9;
+		m_stackStones_black = 9;
+		m_stonesLost_black = 0;
+		m_stonesLost_white = 0;
 
 		/**
 		 * überschreiben der NULL Werte im Array auf den Zustand NONE
