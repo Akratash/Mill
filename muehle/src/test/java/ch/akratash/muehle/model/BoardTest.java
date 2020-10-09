@@ -108,4 +108,27 @@ public class BoardTest
 
         assertEquals(Player.NONE, b.getPlayer(0, 0, 2));
     }
+
+    @Test
+    public void checkPlayerIntIsCorrectExpectTrue(){
+        Board b = new Board();
+
+        b.makeMovePhase1(0, 1, 2);
+        b.makeMovePhase1(0, 1, 0);
+        
+        assertEquals(2, b.getPlayerInt());
+    }
+
+    @Test
+    public void checkPlayerIntIsCorrect2ExpectTrue(){
+        Board b = new Board();
+
+        b.makeMovePhase1(0, 1, 2);
+        b.makeMovePhase1(0, 1, 0);
+        b.makeMovePhase1(2, 1, 2);
+        
+        assertEquals(1, b.getPlayerInt());
+    }
+
+
 }

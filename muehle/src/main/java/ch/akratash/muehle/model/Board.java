@@ -1,23 +1,23 @@
 package ch.akratash.muehle.model;
 
-/**
- * Hello world!
- *
- */
-public class Board
+import java.util.Collections;
+
+public class Board extends Mills
 {
 
 	/**
 	 * 3Dimensionales Array welches den Zustand der gesetzten Steine beinhaltet
 	 */
 	private Player[][][] m_grid;
+	private int m_player;
+	private int m_playerStonesLeft[][];
+	private int blackplayerstones;
+	private int whiteplayerstones;
 	private boolean m_gameOver;
 	private Player m_activePlayer;
 	private Player m_winner;
-	private int m_stackStones_white;
-	private int m_stackStones_black;
-	private int m_stonesLost_white;
-	private int m_stonesLost_black;
+
+	public static final boolean IS_FLYING_ALLOWED = false;
 
 	/**
 	 * Default Zustände des Boards GameOver Zustand auf false neues 2 Dimensionales
@@ -26,14 +26,17 @@ public class Board
 	 * 
 	 */
 	public Board() {
+		m_player = 0;
+		// KINDERGAGGI
+		whiteplayerstones = 9;
+		blackplayerstones = 9;
+		
 		m_gameOver = false;
 		m_grid = new Player[3][3][3];
+		m_playerStonesLeft = new int [2][1];
 		m_activePlayer = Player.WHITE;
 		m_winner = Player.NONE;
-		m_stackStones_white = 9;
-		m_stackStones_black = 9;
-		m_stonesLost_black = 0;
-		m_stonesLost_white = 0;
+
 
 		/**
 		 * überschreiben der NULL Werte im Array auf den Zustand NONE
@@ -44,6 +47,55 @@ public class Board
 					m_grid[dimension][column][row] = Player.NONE;
 				}
 			}	
+		}
+	}
+
+	public void checkMILLS(){
+		
+	}
+
+	// BRUUUUUUUCHTS DA !!!?
+	private void setPlayerInt(int player){
+		if(m_activePlayer==Player.WHITE){
+			player = 1;
+		} else if(m_activePlayer==Player.BLACK){
+			player = 2;
+		}
+		m_player = player;
+	}
+
+	public int getPlayerInt(){
+		return m_player;
+	}
+
+	public int getStonesblack(){
+		return blackplayerstones;
+	}
+	
+	public int getStoneswhite(){
+		return whiteplayerstones;
+	}
+
+	/*
+		KOMISCHE SCHàDEN
+	*/ 
+	/*public void stoneCounter(){
+		if(m_player==1){
+			whiteplayerstones-=1;
+			m_playerStonesLeft[m_player][0]= whiteplayerstones;
+		}
+		if(m_player==2){
+			blackplayerstones-=1;
+			m_playerStonesLeft[m_player][0]= blackplayerstones;
+		}
+	}*/
+
+	public void stoneCounter(){
+		if(m_player==1){
+			whiteplayerstones-=1;
+		}
+		if(m_player==2){
+			blackplayerstones-=1;
 		}
 	}
 
@@ -60,23 +112,7 @@ public class Board
 		}
 	}
 
-	/**
-	 * Macht einen Spielschritt auf der Colmn für den nächsten Spieler.
-	 * 
-	 * @param column Spalte in welcher der Stein gesetzt wird
-	 * @return true falls valider Zug
-	 */
-	public boolean makeMove(int column) {
-		boolean result = false;
-		// TODO add logic
 
-		return result;
-	}
-
-
-	protected int checkPhase(){
-		return 0;
-	}
 
 
 	/*
@@ -86,8 +122,8 @@ public class Board
 	 */
 	public boolean makeMovePhase1(int dimension, int column, int row) {
 		boolean result = false;
+		setPlayerInt(m_player);
 
-		
 		if (dimension < 0 || dimension > 2){
 			return false;
 		}
@@ -105,43 +141,71 @@ public class Board
 			return false;
 		}
 
+		//KINDER IMPLEMENTS
+		if(m_activePlayer==Player.WHITE&&whiteplayerstones==0){
+			return false;
+		}
+
+		if(m_activePlayer==Player.BLACK&&blackplayerstones==0){
+			return false;
+		}
+
+
 		m_grid[dimension][column][row] = m_activePlayer;
+		stoneCounter();
 		switchPlayer();
 		result = true;
 
 		return result;
 	}
 
-	/**
+
+	public void getPlayerPossMillIndex(){
+			
+	}
+
+	public void makeMove(){
+		if(m_playerStonesLeft[m_player][0]==0){
+			
+		}
+	}
+
+	/* 
+	* Phase 2 die Steine können jetzt nur noch verschoben werden an benachbarte Felder
+	*/
+	public boolean makeMovePhase2(int dimension, int column, int row) {
+		boolean result = false;
+		boolean p1Done = false;
+		if(m_activePlayer==Player.WHITE&&whiteplayerstones==0){
+			p1Done = true;
+		}else if(m_activePlayer==Player.BLACK&&blackplayerstones==0){
+			p1Done = true;
+		}
+
+		// TODO add logic
+
+		return result;
+	}
+
+	/*
 	 * Gibt an ob das Spiel vorbei ist.
-	 * 
-	 * @return true if game is over
-	 */
+	 */ 
 	public boolean isGameOver() {
+		//Wenn ein Spieler keine Steine mehr hat oder keinen mehr bewegen kann hat er das Spiel verloren.
 		return m_gameOver;
 	}
 
 
 	private void checkGameOver() {
-		// TODO implement
+		//Wenn ein Spieler keine Steine mehr hat oder keinen mehr bewegen kann hat er das Spiel verloren.
+
 	}
 
-
-	/**
-	 * Getter für den Gewinner
-	 * @return m_winner
-	 */
 	public Player getWinner() {
 		return m_winner;
 	}
 
-	/**
-	 * Liest die den Spieler aus dem Ĝrid aus.
-	 * 
-	 * @param colIndex
-	 * @param rowIndex
-	 * @return m_grid[colIndex][rowIndex]
-	 */
+	// Liest die den Spieler aus dem Ĝrid aus.
 	public Player getPlayer(int dimension, int colIndex, int rowIndex) {
 		return m_grid[dimension][colIndex][rowIndex];
 	}
@@ -154,5 +218,8 @@ public class Board
 	public Player getActivePlayer() {
 		return m_activePlayer;
 	}
+
+
+
 
 }

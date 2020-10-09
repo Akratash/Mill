@@ -11,9 +11,10 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="786.0" prefWidth="972.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.akratash.muehle.control.Controller">
    <children>
+      <Button fx:id="sysout0" layoutX="860.0" layoutY="43.0" mnemonicParsing="false" onAction="#handleSysoutButtonAction" text="System.out" />
       <Button fx:id="testbutton" layoutX="87.0" layoutY="55.0" mnemonicParsing="false" onAction="#handleRowGridAction" text="New Game" />
       <AnchorPane layoutX="24.0" layoutY="-230.0" prefHeight="200.0" prefWidth="200.0" />
-      <Pane id="Pane" layoutX="186.0" layoutY="93.0" prefHeight="600.0" prefWidth="600.0" styleClass="bodybg" stylesheets="@aplication.css">
+      <Pane id="Pane" layoutX="186.0" layoutY="93.0" prefHeight="600.0" prefWidth="600.0" styleClass="bodybg" stylesheets="@application.css">
          <children>
             <GridPane fx:id="dimGrid" layoutX="4.0" layoutY="5.0" prefHeight="591.0" prefWidth="590.0">
               <columnConstraints>

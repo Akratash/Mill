@@ -21,6 +21,7 @@ public class Controller {
     @FXML
     private void handleRowGridAction(ActionEvent event){
         m_board = new Board();
+        m_board.getPlayerInt();
         Circle circle = new Circle();
         for (int i = 0; i < 3; i++){
             GridPane.setColumnIndex(circle, i);
@@ -32,6 +33,11 @@ public class Controller {
             }
         }
     }
+    @FXML
+    private void handleSysoutButtonAction(ActionEvent event){
+      
+    }
+
     private  void renderRowGrid(final int colIndex, final int rowIndex){
         for (Node node : rowGrid.getChildren()){
 
