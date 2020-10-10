@@ -2,17 +2,15 @@ package ch.akratash.muehle.model;
 
 import java.util.Collections;
 
-public class Board extends Mills
-{
+public class Board extends Mills {
 
 	/**
 	 * 3Dimensionales Array welches den Zustand der gesetzten Steine beinhaltet
 	 */
 	private Player[][][] m_grid;
 	private int m_player;
-	private int m_playerStonesLeft[][];
-	private int blackplayerstones;
-	private int whiteplayerstones;
+	private int m_blackPlayerStones;
+	private int m_whitePlayerStones;
 	private boolean m_gameOver;
 	private Player m_activePlayer;
 	private Player m_winner;
@@ -28,15 +26,13 @@ public class Board extends Mills
 	public Board() {
 		m_player = 0;
 		// KINDERGAGGI
-		whiteplayerstones = 9;
-		blackplayerstones = 9;
-		
+		m_whitePlayerStones = 9;
+		m_blackPlayerStones = 9;
+
 		m_gameOver = false;
 		m_grid = new Player[3][3][3];
-		m_playerStonesLeft = new int [2][1];
 		m_activePlayer = Player.WHITE;
 		m_winner = Player.NONE;
-
 
 		/**
 		 * überschreiben der NULL Werte im Array auf den Zustand NONE
@@ -46,56 +42,42 @@ public class Board extends Mills
 				for (int row = 0; row < m_grid[dimension][column].length; row++) {
 					m_grid[dimension][column][row] = Player.NONE;
 				}
-			}	
+			}
 		}
 	}
 
-	public void checkMILLS(){
-		
+	public void checkMILLS() {
+
 	}
 
 	// BRUUUUUUUCHTS DA !!!?
-	private void setPlayerInt(int player){
-		if(m_activePlayer==Player.WHITE){
+	private void setPlayerInt(int player) {
+		if (m_activePlayer == Player.WHITE) {
 			player = 1;
-		} else if(m_activePlayer==Player.BLACK){
+		} else if (m_activePlayer == Player.BLACK) {
 			player = 2;
 		}
 		m_player = player;
 	}
 
-	public int getPlayerInt(){
+	public int getPlayerInt() {
 		return m_player;
 	}
 
-	public int getStonesblack(){
-		return blackplayerstones;
-	}
-	
-	public int getStoneswhite(){
-		return whiteplayerstones;
+	public int getStonesblack() {
+		return m_blackPlayerStones;
 	}
 
-	/*
-		KOMISCHE SCHàDEN
-	*/ 
-	/*public void stoneCounter(){
-		if(m_player==1){
-			whiteplayerstones-=1;
-			m_playerStonesLeft[m_player][0]= whiteplayerstones;
-		}
-		if(m_player==2){
-			blackplayerstones-=1;
-			m_playerStonesLeft[m_player][0]= blackplayerstones;
-		}
-	}*/
+	public int getStoneswhite() {
+		return m_whitePlayerStones;
+	}
 
-	public void stoneCounter(){
-		if(m_player==1){
-			whiteplayerstones-=1;
+	public void stoneCounter() {
+		if (m_player == 1) {
+			m_whitePlayerStones -= 1;
 		}
-		if(m_player==2){
-			blackplayerstones-=1;
+		if (m_player == 2) {
+			m_blackPlayerStones -= 1;
 		}
 	}
 
@@ -112,44 +94,44 @@ public class Board extends Mills
 		}
 	}
 
-
-
+	public void makeMove(int dimension, int column, int row) {
+		makeMovePhase1(dimension, column, row);
+	}
 
 	/*
-	 *Methode für die Setzphase jeder Spieler kann pro Zug einen Spielstein
-	 * auf einen beliebigen freien Index setzen.
-	 * Die Phase endet wenn jeder Spieler 9 Steine gesetzt hat.
+	 * Methode für die Setzphase jeder Spieler kann pro Zug einen Spielstein auf
+	 * einen beliebigen freien Index setzen. Die Phase endet wenn jeder Spieler 9
+	 * Steine gesetzt hat.
 	 */
-	public boolean makeMovePhase1(int dimension, int column, int row) {
+	protected boolean makeMovePhase1(int dimension, int column, int row) {
 		boolean result = false;
 		setPlayerInt(m_player);
 
-		if (dimension < 0 || dimension > 2){
+		if (dimension < 0 || dimension > 2) {
 			return false;
 		}
-		if (column < 0 || column > 2){
+		if (column < 0 || column > 2) {
 			return false;
 		}
-		if (row < 0 || row > 2){
+		if (row < 0 || row > 2) {
 			return false;
 		}
-		if (column == 1 && row == 1){
-			return false;
-		}
-
-		if(m_grid[dimension][column][row]!=Player.NONE){
+		if (column == 1 && row == 1) {
 			return false;
 		}
 
-		//KINDER IMPLEMENTS
-		if(m_activePlayer==Player.WHITE&&whiteplayerstones==0){
+		if (m_grid[dimension][column][row] != Player.NONE) {
 			return false;
 		}
 
-		if(m_activePlayer==Player.BLACK&&blackplayerstones==0){
+		// KINDER IMPLEMENTS
+		if (m_activePlayer == Player.WHITE && m_whitePlayerStones == 0) {
 			return false;
 		}
 
+		if (m_activePlayer == Player.BLACK && m_blackPlayerStones == 0) {
+			return false;
+		}
 
 		m_grid[dimension][column][row] = m_activePlayer;
 		stoneCounter();
@@ -159,26 +141,16 @@ public class Board extends Mills
 		return result;
 	}
 
-
-	public void getPlayerPossMillIndex(){
-			
-	}
-
-	public void makeMove(){
-		if(m_playerStonesLeft[m_player][0]==0){
-			
-		}
-	}
-
-	/* 
-	* Phase 2 die Steine können jetzt nur noch verschoben werden an benachbarte Felder
-	*/
+	/*
+	 * Phase 2 die Steine können jetzt nur noch verschoben werden an benachbarte
+	 * Felder
+	 */
 	public boolean makeMovePhase2(int dimension, int column, int row) {
 		boolean result = false;
 		boolean p1Done = false;
-		if(m_activePlayer==Player.WHITE&&whiteplayerstones==0){
+		if (m_activePlayer == Player.WHITE && m_whitePlayerStones == 0) {
 			p1Done = true;
-		}else if(m_activePlayer==Player.BLACK&&blackplayerstones==0){
+		} else if (m_activePlayer == Player.BLACK && m_blackPlayerStones == 0) {
 			p1Done = true;
 		}
 
@@ -187,17 +159,22 @@ public class Board extends Mills
 		return result;
 	}
 
+	public void getPlayerPossMillIndex() {
+
+	}
+
 	/*
 	 * Gibt an ob das Spiel vorbei ist.
-	 */ 
+	 */
 	public boolean isGameOver() {
-		//Wenn ein Spieler keine Steine mehr hat oder keinen mehr bewegen kann hat er das Spiel verloren.
+		// Wenn ein Spieler weniger als 3 Steine mehr hat oder keinen mehr bewegen kann
+		// hat er das Spiel verloren.
 		return m_gameOver;
 	}
 
-
 	private void checkGameOver() {
-		//Wenn ein Spieler keine Steine mehr hat oder keinen mehr bewegen kann hat er das Spiel verloren.
+		// Wenn ein Spieler weniger als 3 Steine mehr hat oder keinen mehr bewegen kann
+		// hat er das Spiel verloren.
 
 	}
 
@@ -205,7 +182,7 @@ public class Board extends Mills
 		return m_winner;
 	}
 
-	// Liest die den Spieler aus dem Ĝrid aus.
+	// Liest die den Spieler aus dem Grid aus.
 	public Player getPlayer(int dimension, int colIndex, int rowIndex) {
 		return m_grid[dimension][colIndex][rowIndex];
 	}
@@ -218,8 +195,5 @@ public class Board extends Mills
 	public Player getActivePlayer() {
 		return m_activePlayer;
 	}
-
-
-
 
 }

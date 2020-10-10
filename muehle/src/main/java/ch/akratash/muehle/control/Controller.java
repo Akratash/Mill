@@ -100,21 +100,21 @@ public class Controller {
     }
     @FXML
     private void handleRowGridIndexAction00(MouseEvent event){
-        m_board.makeMovePhase1(2,0,0);
+        m_board.makeMove(2,0,0);
         renderRowGrid(0, 0);
         renderLabels();
     }
     
     @FXML
     private void handleRowGridIndexAction01(MouseEvent event){
-        m_board.makeMovePhase1(2,0,1);
+        m_board.makeMove(2,0,1);
         renderRowGrid(0, 1);
         renderLabels();
     }
 
     @FXML
     private void handleRowGridIndexAction02(MouseEvent event){
-        m_board.makeMovePhase1(2,0,2);
+        m_board.makeMove(2,0,2);
         renderRowGrid(0, 2);
         renderLabels();
     }
@@ -122,35 +122,35 @@ public class Controller {
 
     @FXML
     private void handleRowGridIndexAction10(MouseEvent event){
-        m_board.makeMovePhase1(2,1,0);
+        m_board.makeMove(2,1,0);
         renderRowGrid(1, 0);
         renderLabels();
     }
 
     @FXML
     private void handleRowGridIndexAction12(MouseEvent event){
-        m_board.makeMovePhase1(2,1,2);
+        m_board.makeMove(2,1,2);
         renderRowGrid(1, 2);
         renderLabels();
     }
 
     @FXML
     private void handleRowGridIndexAction20(MouseEvent event){
-        m_board.makeMovePhase1(2,2,0);
+        m_board.makeMove(2,2,0);
         renderRowGrid(2, 0);
         renderLabels();
     }
 
     @FXML
     private void handleRowGridIndexAction21(MouseEvent event){
-        m_board.makeMovePhase1(2,2,1);
+        m_board.makeMove(2,2,1);
         renderRowGrid(2, 1);
         renderLabels();
     }
 
     @FXML
     private void handleRowGridIndexAction22(MouseEvent event){
-        m_board.makeMovePhase1(2,2,2);
+        m_board.makeMove(2,2,2);
         renderRowGrid(2, 2);
         renderLabels();
     }
@@ -158,21 +158,21 @@ public class Controller {
 
     @FXML
     private void handleColGridIndexAction00(MouseEvent event){
-        m_board.makeMovePhase1(1,0,0);
+        m_board.makeMove(1,0,0);
         renderColGrid(0, 0);
         renderLabels();
     }
     
     @FXML
     private void handleColGridIndexAction01(MouseEvent event){
-        m_board.makeMovePhase1(1,0,1);
+        m_board.makeMove(1,0,1);
         renderColGrid(0, 1);
         renderLabels();
     }
 
     @FXML
     private void handleColGridIndexAction02(MouseEvent event){
-        m_board.makeMovePhase1(1,0,2);
+        m_board.makeMove(1,0,2);
         renderColGrid(0, 2);
         renderLabels();
     }
@@ -180,56 +180,56 @@ public class Controller {
 
     @FXML
     private void handleColGridIndexAction10(MouseEvent event){
-        m_board.makeMovePhase1(1,1,0);
+        m_board.makeMove(1,1,0);
         renderColGrid(1, 0);
         renderLabels();
     }
 
     @FXML
     private void handleColGridIndexAction12(MouseEvent event){
-        m_board.makeMovePhase1(1,1,2);
+        m_board.makeMove(1,1,2);
         renderColGrid(1, 2);
         renderLabels();
     }
 
     @FXML
     private void handleColGridIndexAction20(MouseEvent event){
-        m_board.makeMovePhase1(1,2,0);
+        m_board.makeMove(1,2,0);
         renderColGrid(2, 0);
         renderLabels();
     }
 
     @FXML
     private void handleColGridIndexAction21(MouseEvent event){
-        m_board.makeMovePhase1(1,2,1);
+        m_board.makeMove(1,2,1);
         renderColGrid(2, 1);
         renderLabels();
     }
 
     @FXML
     private void handleColGridIndexAction22(MouseEvent event){
-        m_board.makeMovePhase1(1,2,2);
+        m_board.makeMove(1,2,2);
         renderColGrid(2, 2);
         renderLabels();
     }
 
     @FXML
     private void handleDimGridIndexAction00(MouseEvent event){
-        m_board.makeMovePhase1(0,0,0);
+        m_board.makeMove(0,0,0);
         renderDimGrid(0, 0);
         renderLabels();
     }
     
     @FXML
     private void handleDimGridIndexAction01(MouseEvent event){
-        m_board.makeMovePhase1(0,0,1);
+        m_board.makeMove(0,0,1);
         renderDimGrid(0, 1);
         renderLabels();
     }
 
     @FXML
     private void handleDimGridIndexAction02(MouseEvent event){
-        m_board.makeMovePhase1(0,0,2);
+        m_board.makeMove(0,0,2);
         renderDimGrid(0, 2);
         renderLabels();
     }
@@ -237,35 +237,35 @@ public class Controller {
 
     @FXML
     private void handleDimGridIndexAction10(MouseEvent event){
-        m_board.makeMovePhase1(0,1,0);
+        m_board.makeMove(0,1,0);
         renderDimGrid(1, 0);
         renderLabels();
     }
 
     @FXML
     private void handleDimGridIndexAction12(MouseEvent event){
-        m_board.makeMovePhase1(0,1,2);
+        m_board.makeMove(0,1,2);
         renderDimGrid(1, 2);
         renderLabels();
     }
 
     @FXML
     private void handleDimGridIndexAction20(MouseEvent event){
-        m_board.makeMovePhase1(0,2,0);
+        m_board.makeMove(0,2,0);
         renderDimGrid(2, 0);
         renderLabels();
     }
 
     @FXML
     private void handleDimGridIndexAction21(MouseEvent event){
-        m_board.makeMovePhase1(0,2,1);
+        m_board.makeMove(0,2,1);
         renderDimGrid(2, 1);
         renderLabels();
     }
 
     @FXML
     private void handleDimGridIndexAction22(MouseEvent event){
-        m_board.makeMovePhase1(0,2,2);
+        m_board.makeMove(0,2,2);
         renderDimGrid(2, 2);
         renderLabels();
     }
