@@ -2,13 +2,14 @@ package ch.akratash.muehle.model;
 
 import java.util.Collections;
 
+import javafx.geometry.Dimension2D;
+
 public class Board extends Mills {
 
 	/**
 	 * 3Dimensionales Array welches den Zustand der gesetzten Steine beinhaltet
 	 */
 	private Player[][][] m_grid;
-	private int m_player;
 	private int m_blackPlayerStones;
 	private int m_whitePlayerStones;
 	private boolean m_gameOver;
@@ -24,8 +25,7 @@ public class Board extends Mills {
 	 * 
 	 */
 	public Board() {
-		m_player = 0;
-		// KINDERGAGGI
+		// Initialisieren des Boards inklusive Counter für die Steine.
 		m_whitePlayerStones = 9;
 		m_blackPlayerStones = 9;
 
@@ -46,24 +46,7 @@ public class Board extends Mills {
 		}
 	}
 
-	public void checkMILLS() {
-
-	}
-
-	// BRUUUUUUUCHTS DA !!!?
-	private void setPlayerInt(int player) {
-		if (m_activePlayer == Player.WHITE) {
-			player = 1;
-		} else if (m_activePlayer == Player.BLACK) {
-			player = 2;
-		}
-		m_player = player;
-	}
-
-	public int getPlayerInt() {
-		return m_player;
-	}
-
+	// Getter für die Steine der Spieler.
 	public int getStonesblack() {
 		return m_blackPlayerStones;
 	}
@@ -72,11 +55,13 @@ public class Board extends Mills {
 		return m_whitePlayerStones;
 	}
 
+
+	// Methode die zählt wievele Steine gesetzt wurden. Beginnt bei 9 und endet bei 0.
 	public void stoneCounter() {
-		if (m_player == 1) {
+		if (m_activePlayer == Player.WHITE) {
 			m_whitePlayerStones -= 1;
 		}
-		if (m_player == 2) {
+		if (m_activePlayer == Player.BLACK) {
 			m_blackPlayerStones -= 1;
 		}
 	}
@@ -94,8 +79,36 @@ public class Board extends Mills {
 		}
 	}
 
+	// Variabeln für den Cache für einen Spielzug Phase 2.
+	private boolean m_firstClickPending = true;
+	private int m_firstClickDimension;
+	private int m_firstClickColumn;
+	private int m_firstClickRow;
+
+
+	public void setFirstClickPendingTrue(){
+		m_firstClickPending = true;
+	}
+	/** 
+	 * Methode die alle Varianten des Spielzugs handelt
+	 */
 	public void makeMove(int dimension, int column, int row) {
-		makeMovePhase1(dimension, column, row);
+		// Erster Teil kontrolliert ob alle Spielsteine schon gesetzt wurden und somit Phase2 beginnt.(Spielsteine schieben)
+		if (m_blackPlayerStones > 0) {
+			makeMovePhase1(dimension, column, row);
+		} else {
+			// Prüft ob der Spieler schon einen Zielpunkt für den Stein gewählt hat wenn nicht speichert er die koordinaten in die Variabeln.
+			if (m_firstClickPending) {
+				m_firstClickPending = false;
+				m_firstClickDimension = dimension;
+				m_firstClickColumn = column;
+				m_firstClickRow = row;
+			} else {
+				// Ausführen des Spielzugs Phase 2
+				makeMovePhase2(m_firstClickDimension, m_firstClickColumn, m_firstClickRow, dimension, column, row);
+				m_firstClickPending = true;
+			}
+		}
 	}
 
 	/*
@@ -105,7 +118,7 @@ public class Board extends Mills {
 	 */
 	protected boolean makeMovePhase1(int dimension, int column, int row) {
 		boolean result = false;
-		setPlayerInt(m_player);
+		// setPlayerInt(m_player);
 
 		if (dimension < 0 || dimension > 2) {
 			return false;
@@ -124,7 +137,7 @@ public class Board extends Mills {
 			return false;
 		}
 
-		// KINDER IMPLEMENTS
+		// Prüft ob noch Steine gesetzt werden dürfen
 		if (m_activePlayer == Player.WHITE && m_whitePlayerStones == 0) {
 			return false;
 		}
@@ -142,25 +155,33 @@ public class Board extends Mills {
 	}
 
 	/*
-	 * Phase 2 die Steine können jetzt nur noch verschoben werden an benachbarte
+	 * Phase 2 die Steine können jetzt nur noch verschoben werden an freie benachbarte
 	 * Felder
 	 */
-	public boolean makeMovePhase2(int dimension, int column, int row) {
+	protected boolean makeMovePhase2(int dimension0, int column0, int row0, int dimension1, int column1, int row1) {
 		boolean result = false;
-		boolean p1Done = false;
-		if (m_activePlayer == Player.WHITE && m_whitePlayerStones == 0) {
-			p1Done = true;
-		} else if (m_activePlayer == Player.BLACK && m_blackPlayerStones == 0) {
-			p1Done = true;
+		if (m_grid[dimension0][column0][row0] != m_activePlayer) {
+			return false;
 		}
 
-		// TODO add logic
+		if (m_grid[dimension1][column1][row1] != Player.NONE) {
+			return false;
+		}
+		if((column0+row0%2)==0&&dimension0!=dimension1){
+			return false;
+		}
+		if((column0+row0)%2==0){
+			if((column1+row1)%2==0){
+				return false;
+			}
+		}
+		m_grid[dimension0][column0][row0] = Player.NONE;
+		m_grid[dimension1][column1][row1] = m_activePlayer;
+
+		switchPlayer();
+		result = true;
 
 		return result;
-	}
-
-	public void getPlayerPossMillIndex() {
-
 	}
 
 	/*

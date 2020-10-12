@@ -109,26 +109,108 @@ public class BoardTest
         assertEquals(Player.NONE, b.getPlayer(0, 0, 2));
     }
 
-    @Test
-    public void checkPlayerIntIsCorrectExpectTrue(){
-        Board b = new Board();
 
-        b.makeMovePhase1(0, 1, 2);
-        b.makeMovePhase1(0, 1, 0);
+    @Test
+    public void makeMovePhase2Legal1ExpectTrue(){
+        // prepare test
+        Board b = new Board();
+        b.makeMovePhase1(0, 0, 0);
+        b.makeMovePhase1(0, 0, 2);
+
+        // test it
+        boolean result = b.makeMovePhase2(0, 0, 0, 0, 0, 1);
         
-        assertEquals(2, b.getPlayerInt());
+        // check it
+        assertTrue(result);
     }
 
     @Test
-    public void checkPlayerIntIsCorrect2ExpectTrue(){
+    public void makeMovePhase2Legal2ExpectTrue(){
+        // prepare test
         Board b = new Board();
-
-        b.makeMovePhase1(0, 1, 2);
         b.makeMovePhase1(0, 1, 0);
-        b.makeMovePhase1(2, 1, 2);
+        b.makeMovePhase1(0, 0, 2);
+
+        // test it
+        boolean result = b.makeMovePhase2(0, 1, 0, 1, 1, 0);
         
-        assertEquals(1, b.getPlayerInt());
+        // check it
+        assertTrue(result);
     }
 
+    @Test
+    public void makeMovePhase2Illegal1ExpectFalse(){
+        //prepare Test
+        Board b = new Board();
+        b.makeMovePhase1(0, 2, 0);
+        b.makeMovePhase1(0, 2, 1);
+        b.makeMovePhase1(0, 2, 2);
+
+        // test it
+        boolean result = b.makeMovePhase2(0, 2, 0, 0, 2, 1);
+
+        //check it
+        assertFalse(result);
+    }
+
+
+    @Test
+    public void makeMovePhase2Illegal2ExpectFalse(){
+        // prepare test
+        Board b = new Board();
+        b.makeMovePhase1(0, 0, 0);
+        b.makeMovePhase1(0, 0, 2);
+
+        // test it
+        boolean result = b.makeMovePhase2(0, 0, 0, 1, 0, 0);
+        
+        // check it
+        assertFalse(result);
+    }
+
+    @Test
+    public void makeMovePhase2Illegal3ExpectFalse(){
+        // prepare test
+        Board b = new Board();
+        b.makeMovePhase1(0, 0, 0);
+        b.makeMovePhase1(0, 0, 2);
+
+        // test it
+        boolean result = b.makeMovePhase2(0, 0, 0, 0, 2, 2);
+        
+        // check it
+        assertFalse(result);
+    }
+
+    @Test
+    public void makeMovePhase2Illegal4ExpectFalse(){
+        // prepare test
+        Board b = new Board();
+        b.makeMovePhase1(0, 0, 0);
+        b.makeMovePhase1(0, 0, 2);
+        b.makeMove(0, 1, 0);// Wichtig --> sonst falscher activePlayer
+
+        // test it
+        boolean result = b.makeMovePhase2(0, 0, 2, 0, 2, 0);
+        
+        // check it
+        assertFalse(result);
+    }
+
+
+    @Test
+    public void makeMovePhase2Illegal5ExpectFalse(){
+        // prepare test
+        Board b = new Board();
+        b.makeMovePhase1(0, 0, 0);
+        b.makeMovePhase1(0, 0, 2);
+        b.makeMove(0, 1, 0);// Wichtig --> sonst falscher activePlayer
+
+        // test it
+        boolean result = b.makeMovePhase2(0, 0, 2, 0, 2, 2);
+        
+        // check it
+        assertFalse(result);
+    }
 
 }
