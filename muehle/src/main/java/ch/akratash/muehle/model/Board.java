@@ -1,8 +1,5 @@
 package ch.akratash.muehle.model;
 
-import java.util.Collections;
-
-import javafx.geometry.Dimension2D;
 
 public class Board extends Mills {
 
@@ -188,41 +185,17 @@ public class Board extends Mills {
 		return result;
 	}
 
+	// Prüft ob aktive Mühlen vorhanden sind.
 	public void checkMill(final int lastInsertedDim, final int lastInsertedCol, final int lastInsertedRow){
 		Player lastInsertedPlayer = m_grid[lastInsertedDim][lastInsertedCol][lastInsertedRow];
-			if(!m_isMill && (checkMillsDim(lastInsertedDim, lastInsertedCol, lastInsertedRow, lastInsertedPlayer))){
+			if(!m_isMill && (checkMillsDim(lastInsertedDim, lastInsertedCol, lastInsertedRow, lastInsertedPlayer)
+			|| checkMillsCol(lastInsertedDim, lastInsertedCol, lastInsertedRow, lastInsertedPlayer)
+			|| checkMillsRow(lastInsertedDim, lastInsertedCol, lastInsertedRow, lastInsertedPlayer))){
 				m_isMill = true;
 			}
 		}
 
-	
-/*	private void checkGameOver(final int lastInsertedColumn, final int lastInsertedRow) {
-
-		Color lastInsertedColor = m_grid[lastInsertedColumn][lastInsertedRow];
-
-
-
-		if (!m_gameOver && (checkGameOverColumn(lastInsertedColumn, lastInsertedRow, lastInsertedColor)
-
-				|| checkGameOverRow(lastInsertedColumn, lastInsertedRow, lastInsertedColor)
-
-				|| checkGameOverDiagonalBackslash(lastInsertedColumn, lastInsertedRow, lastInsertedColor)
-
-				|| checkGameOverDiagonalForwardslash(lastInsertedColumn, lastInsertedRow, lastInsertedColor))) {
-
-			m_gameOver = true;
-
-			m_winner = lastInsertedColor;
-
-		} else if (checkGameOverBoardFullNoWinner(lastInsertedRow)) {
-
-			m_gameOver = true;
-
-		}
-
-	}*/
-
-	// Prüft die Senkrechten Mühlen in der Mitte des Feldes (Dimension ===> x00)
+	// Prüft die Senkrechten und Waagerechten Mühlen in der Mitte des Feldes welche die Dimensionen wechseln (Dimension ===> x00)
 	private boolean checkMillsDim(int lastInsertedDim, int lastInsertedCol, int lastInsertedRow, Player lastInsertedPlayer){
 		boolean result = false;
 		//Player lastInsertedPlayer2 = m_grid[lastInsertedDim][lastInsertedCol][lastInsertedRow];
@@ -248,18 +221,18 @@ public class Board extends Mills {
 		}
 		return result;
 	}
-
+	// Prüft die Waagerechten Mühlen des Spielfeldes welche nicht die Dimension wechseln (Column ===> 0x0)
 	private boolean checkMillsCol(int lastInsertedDim, int lastInsertedCol, int lastInsertedRow, Player lastInsertedPlayer){
 		boolean result = false;
 		int count = 0;
-		for (int col = lastInsertedCol; col <=0; col--){
+		for (int col = lastInsertedCol; col >=0; col--){
 			if (m_grid[lastInsertedDim][col][lastInsertedRow]== lastInsertedPlayer){
 				count++;
 			}else{
 			}
 		}
 
-		for(int col = lastInsertedCol; col > m_grid[lastInsertedDim].length; col++){
+		for(int col = lastInsertedCol; col < m_grid[lastInsertedDim].length; col++){
 			if(m_grid[lastInsertedDim][col][lastInsertedRow]== lastInsertedPlayer){
 				count++;
 			}else{
@@ -273,6 +246,31 @@ public class Board extends Mills {
 		return result;
 	}
 
+		// Prüft die Senkrechten Mühlen des Spielfeldes welche nicht die Dimension wechseln (Column ===> 0x0)
+		private boolean checkMillsRow(int lastInsertedDim, int lastInsertedCol, int lastInsertedRow, Player lastInsertedPlayer){
+			boolean result = false;
+			int count = 0;
+			for (int row = lastInsertedCol; row >=0; row--){
+				if (m_grid[lastInsertedDim][lastInsertedCol][row]== lastInsertedPlayer){
+					count++;
+				}else{
+				}
+			}
+	
+			for(int row = lastInsertedCol; row < m_grid[lastInsertedDim].length; row++){
+				if(m_grid[lastInsertedDim][lastInsertedCol][row]== lastInsertedPlayer){
+					count++;
+				}else{
+					break;
+				}
+			}
+	
+			if(count==3){
+				result=true;
+			}
+			return result;
+		}
+
 
 	/*
 	 * Gibt an ob das Spiel vorbei ist.
@@ -281,12 +279,6 @@ public class Board extends Mills {
 		// Wenn ein Spieler weniger als 3 Steine mehr hat oder keinen mehr bewegen kann
 		// hat er das Spiel verloren.
 		return m_gameOver;
-	}
-
-	private void checkGameOver() {
-		// Wenn ein Spieler weniger als 3 Steine mehr hat oder keinen mehr bewegen kann
-		// hat er das Spiel verloren.
-
 	}
 
 	public Player getWinner() {

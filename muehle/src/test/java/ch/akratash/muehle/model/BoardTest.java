@@ -246,4 +246,74 @@ public class BoardTest
         // check it
         assertTrue(result);
     }
+
+    @Test
+    public void testDimMillHorizontal1ExpectTrue(){
+        // prepare test
+        Board b = new Board();
+        b.makeMovePhase1(0, 0, 0);
+        b.makeMovePhase1(1, 2, 0);
+        b.makeMovePhase1(0, 1, 0);
+        b.makeMovePhase1(0, 2, 1);
+        b.makeMovePhase1(0, 2, 0);
+
+        // test it
+        boolean result = b.isActiveMill();
+        
+        // check it
+        assertTrue(result);
+    }
+
+    @Test
+    public void testDimMillHorizontal2ExpectTrue(){
+        // prepare test
+        Board b = new Board();
+        b.makeMovePhase1(0, 0, 0);
+        b.makeMovePhase1(1, 0, 1);
+        b.makeMovePhase1(0, 1, 0);
+        b.makeMovePhase1(2, 0, 1);
+        b.makeMovePhase1(0, 2, 2);
+        b.makeMovePhase1(0, 0, 1);
+
+        // test it
+        boolean result = b.isActiveMill();
+        
+        // check it
+        assertTrue(result);
+    }
+
+    @Test
+    public void testRowMillVertical1ExpectTrue(){
+        // prepare test
+        Board b = new Board();
+        b.makeMovePhase1(0, 0, 0);
+        b.makeMovePhase1(1, 0, 2);
+        b.makeMovePhase1(0, 0, 1);
+        b.makeMovePhase1(2, 0, 1);
+        b.makeMovePhase1(0, 0, 2);
+
+        // test it
+        boolean result = b.isActiveMill();
+        
+        // check it
+        assertTrue(result);
+    }
+
+    @Test
+    public void testRowMillVertical2ExpectTrue(){
+        // prepare test
+        Board b = new Board();
+        b.makeMovePhase1(0, 0, 0);
+        b.makeMovePhase1(0, 2, 0);
+        b.makeMovePhase1(0, 0, 1);
+        b.makeMovePhase1(0, 2, 1);
+        b.makeMovePhase1(1, 0, 2);
+        b.makeMovePhase1(0, 2, 2);
+
+        // test it
+        boolean result = b.isActiveMill();
+        
+        // check it
+        assertTrue(result);
+    }
 }
