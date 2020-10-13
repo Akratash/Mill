@@ -213,4 +213,37 @@ public class BoardTest
         assertFalse(result);
     }
 
+   @Test
+    public void testDimMillVertical1ExpectTrue(){
+        // prepare test
+        Board b = new Board();
+        b.makeMovePhase1(0, 1, 0);
+        b.makeMovePhase1(0, 2, 0);
+        b.makeMovePhase1(1, 1, 0);
+        b.makeMovePhase1(0, 2, 1);
+        b.makeMovePhase1(2, 1, 0);
+
+        // test it
+        boolean result = b.isActiveMill();
+        
+        // check it
+        assertTrue(result);
+    }
+
+    @Test
+    public void testDimMillVertical2ExpectTrue(){
+        // prepare test
+        Board b = new Board();
+        b.makeMovePhase1(2, 1, 2);
+        b.makeMovePhase1(0, 2, 0);
+        b.makeMovePhase1(1, 1, 2);
+        b.makeMovePhase1(0, 2, 1);
+        b.makeMovePhase1(0, 1, 2);
+
+        // test it
+        boolean result = b.isActiveMill();
+        
+        // check it
+        assertTrue(result);
+    }
 }

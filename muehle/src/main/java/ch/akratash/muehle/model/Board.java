@@ -15,8 +15,10 @@ public class Board extends Mills {
 	private boolean m_gameOver;
 	private Player m_activePlayer;
 	private Player m_winner;
+	private boolean m_isMill;
 
 	public static final boolean IS_FLYING_ALLOWED = false;
+	
 
 	/**
 	 * Default Zustände des Boards GameOver Zustand auf false neues 2 Dimensionales
@@ -30,6 +32,7 @@ public class Board extends Mills {
 		m_blackPlayerStones = 9;
 
 		m_gameOver = false;
+		m_isMill = false;
 		m_grid = new Player[3][3][3];
 		m_activePlayer = Player.WHITE;
 		m_winner = Player.NONE;
@@ -147,6 +150,7 @@ public class Board extends Mills {
 		}
 
 		m_grid[dimension][column][row] = m_activePlayer;
+		checkMill(dimension, column, row);
 		stoneCounter();
 		switchPlayer();
 		result = true;
@@ -184,6 +188,92 @@ public class Board extends Mills {
 		return result;
 	}
 
+	public void checkMill(final int lastInsertedDim, final int lastInsertedCol, final int lastInsertedRow){
+		Player lastInsertedPlayer = m_grid[lastInsertedDim][lastInsertedCol][lastInsertedRow];
+			if(!m_isMill && (checkMillsDim(lastInsertedDim, lastInsertedCol, lastInsertedRow, lastInsertedPlayer))){
+				m_isMill = true;
+			}
+		}
+
+	
+/*	private void checkGameOver(final int lastInsertedColumn, final int lastInsertedRow) {
+
+		Color lastInsertedColor = m_grid[lastInsertedColumn][lastInsertedRow];
+
+
+
+		if (!m_gameOver && (checkGameOverColumn(lastInsertedColumn, lastInsertedRow, lastInsertedColor)
+
+				|| checkGameOverRow(lastInsertedColumn, lastInsertedRow, lastInsertedColor)
+
+				|| checkGameOverDiagonalBackslash(lastInsertedColumn, lastInsertedRow, lastInsertedColor)
+
+				|| checkGameOverDiagonalForwardslash(lastInsertedColumn, lastInsertedRow, lastInsertedColor))) {
+
+			m_gameOver = true;
+
+			m_winner = lastInsertedColor;
+
+		} else if (checkGameOverBoardFullNoWinner(lastInsertedRow)) {
+
+			m_gameOver = true;
+
+		}
+
+	}*/
+
+	// Prüft die Senkrechten Mühlen in der Mitte des Feldes (Dimension ===> x00)
+	private boolean checkMillsDim(int lastInsertedDim, int lastInsertedCol, int lastInsertedRow, Player lastInsertedPlayer){
+		boolean result = false;
+		//Player lastInsertedPlayer2 = m_grid[lastInsertedDim][lastInsertedCol][lastInsertedRow];
+		int count = 0;
+		for (int dim = lastInsertedDim; dim >=0; dim--){
+			if(m_grid[dim][lastInsertedCol][lastInsertedRow] == lastInsertedPlayer && (lastInsertedCol+lastInsertedRow)%2==1){
+				count++;
+			}else{
+				break;
+			}
+		}
+
+		for (int dim = lastInsertedDim; dim < m_grid.length; dim++){
+			if(m_grid[dim][lastInsertedCol][lastInsertedRow]== lastInsertedPlayer && (lastInsertedCol+lastInsertedRow)%2==1){
+				count++;
+			}else{
+				break;
+			}
+		} 
+
+		if(count==3){
+			result = true;
+		}
+		return result;
+	}
+
+	private boolean checkMillsCol(int lastInsertedDim, int lastInsertedCol, int lastInsertedRow, Player lastInsertedPlayer){
+		boolean result = false;
+		int count = 0;
+		for (int col = lastInsertedCol; col <=0; col--){
+			if (m_grid[lastInsertedDim][col][lastInsertedRow]== lastInsertedPlayer){
+				count++;
+			}else{
+			}
+		}
+
+		for(int col = lastInsertedCol; col > m_grid[lastInsertedDim].length; col++){
+			if(m_grid[lastInsertedDim][col][lastInsertedRow]== lastInsertedPlayer){
+				count++;
+			}else{
+				break;
+			}
+		}
+
+		if(count==3){
+			result=true;
+		}
+		return result;
+	}
+
+
 	/*
 	 * Gibt an ob das Spiel vorbei ist.
 	 */
@@ -201,6 +291,10 @@ public class Board extends Mills {
 
 	public Player getWinner() {
 		return m_winner;
+	}
+
+	public boolean isActiveMill(){
+		return m_isMill;
 	}
 
 	// Liest die den Spieler aus dem Grid aus.
