@@ -50,7 +50,7 @@ public class Controller {
 
     @FXML
     private void handleSysoutButtonAction(ActionEvent event) {
-        m_board.setFirstClickPendingTrue();
+        renderGrids();
     }
 
     private void renderGrids() {

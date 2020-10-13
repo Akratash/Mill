@@ -229,6 +229,7 @@ public class Board extends Mills {
 			if (m_grid[lastInsertedDim][col][lastInsertedRow]== lastInsertedPlayer){
 				count++;
 			}else{
+				break;
 			}
 		}
 
@@ -254,6 +255,7 @@ public class Board extends Mills {
 				if (m_grid[lastInsertedDim][lastInsertedCol][row]== lastInsertedPlayer){
 					count++;
 				}else{
+					break;
 				}
 			}
 	

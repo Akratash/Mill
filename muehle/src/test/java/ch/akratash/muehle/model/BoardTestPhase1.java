@@ -7,7 +7,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 
-public class BoardTest 
+public class BoardTestPhase1 
 {
 
     @Test
@@ -88,7 +88,7 @@ public class BoardTest
     public void switchPlayerWorksExpectTrue()
     {
         Board b = new Board();
-        b.makeMovePhase1(0, 0, 0);
+        b.makeMove(0, 0, 0);
 
         assertEquals(Player.BLACK, b.getActivePlayer());
     }
@@ -315,5 +315,38 @@ public class BoardTest
         
         // check it
         assertTrue(result);
+    }
+
+    @Test
+    public void testRowMillVertical1ExpectFalse(){
+        // prepare test
+        Board b = new Board();
+        b.makeMovePhase1(0, 0, 0);
+        b.makeMovePhase1(0, 1, 0);
+        b.makeMovePhase1(0, 2, 0);
+
+        // test it
+        boolean result = b.isActiveMill();
+        
+        // check it
+        assertFalse(result);
+    }
+
+    @Test
+    public void takeStoneExpectTrue(){
+        // prepare test
+        Board b = new Board();
+        b.makeMovePhase1(0, 0, 0);
+        b.makeMovePhase1(0, 2, 0);
+        b.makeMovePhase1(0, 0, 1);
+        b.makeMovePhase1(0, 2, 1);
+        b.makeMovePhase1(1, 0, 2);
+        b.makeMovePhase1(0, 2, 2);
+
+        // test it
+        //b.takeStone(0, 0, 0);
+        
+        // check it
+        assertEquals(b.getPlayer(0, 0, 0), Player.NONE);
     }
 }
