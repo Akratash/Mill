@@ -9,6 +9,8 @@ public class Board extends Mills {
 	private Player[][][] m_grid;
 	private int m_blackPlayerStones;
 	private int m_whitePlayerStones;
+	private int m_blackPlayerStonesLost;
+	private int m_whitePlayerStonesLost;
 	private boolean m_gameOver;
 	private Player m_activePlayer;
 	private Player m_winner;
@@ -27,6 +29,8 @@ public class Board extends Mills {
 		// Initialisieren des Boards inklusive Counter für die Steine.
 		m_whitePlayerStones = 9;
 		m_blackPlayerStones = 9;
+		m_blackPlayerStonesLost = 0;
+		m_whitePlayerStonesLost = 0;
 
 		m_gameOver = false;
 		m_isMill = false;
@@ -63,6 +67,15 @@ public class Board extends Mills {
 		}
 		if (m_activePlayer == Player.BLACK) {
 			m_blackPlayerStones -= 1;
+		}
+	}
+	// Zählt pro Spieler die verlorenen Steine
+	public void stoneCounterLost() {
+		if (m_activePlayer == Player.WHITE) {
+			m_whitePlayerStones += 1;
+		}
+		if (m_activePlayer == Player.BLACK) {
+			m_blackPlayerStones += 1;
 		}
 	}
 
@@ -148,6 +161,7 @@ public class Board extends Mills {
 
 		m_grid[dimension][column][row] = m_activePlayer;
 		checkMill(dimension, column, row);
+		takeStone(m_takeClickDim, m_takeClickCol, m_takeClickRow);
 		stoneCounter();
 		switchPlayer();
 		result = true;
@@ -273,7 +287,26 @@ public class Board extends Mills {
 			return result;
 		}
 
+	//Variabeln für den Cache für takeStone
+	private boolean m_takeClickPending = true;
+	private int m_takeClickDim;
+	private int m_takeClickCol;
+	private int m_takeClickRow;
 
+	// Bei aktiver Mühle wird ein Spielstein nach Wahl vom Gegner entfernt.
+	public void takeStone(int dim, int col, int row){
+		if(m_isMill){
+			if(m_takeClickPending){
+				m_takeClickPending = false;
+				m_takeClickDim = dim;
+				m_takeClickCol = col;
+				m_takeClickRow = row;
+			}else{
+				m_grid[dim][col][row] = Player.NONE;
+			}
+
+		}
+	}
 	/*
 	 * Gibt an ob das Spiel vorbei ist.
 	 */

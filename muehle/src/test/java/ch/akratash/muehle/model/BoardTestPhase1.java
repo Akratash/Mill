@@ -344,7 +344,7 @@ public class BoardTestPhase1
         b.makeMovePhase1(0, 2, 2);
 
         // test it
-        //b.takeStone(0, 0, 0);
+        b.takeStone(0, 0, 1);
         
         // check it
         assertEquals(b.getPlayer(0, 0, 0), Player.NONE);
