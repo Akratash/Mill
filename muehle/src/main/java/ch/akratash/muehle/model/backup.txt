@@ -1,9 +1,7 @@
 package ch.akratash.muehle.model;
 
 
-
-
-public class Board extends Mills{
+public class Board extends Mills {
 
 	/**
 	 * 3Dimensionales Array welches den Zustand der gesetzten Steine beinhaltet
@@ -74,10 +72,10 @@ public class Board extends Mills{
 	// Zählt pro Spieler die verlorenen Steine
 	public void stoneCounterLost() {
 		if (m_activePlayer == Player.WHITE) {
-			m_blackPlayerStonesLost += 1;
+			m_blackPlayerStones += 1;
 		}
 		if (m_activePlayer == Player.BLACK) {
-			m_whitePlayerStonesLost += 1;
+			m_whitePlayerStones += 1;
 		}
 	}
 
@@ -103,14 +101,12 @@ public class Board extends Mills{
 
 	public void setFirstClickPendingTrue(){
 		m_firstClickPending = true;
-		stoneCounterLost();
 	}
 	/** 
 	 * Methode die alle Varianten des Spielzugs handelt
 	 */
 	public void makeMove(int dimension, int column, int row) {
 		// Erster Teil kontrolliert ob alle Spielsteine schon gesetzt wurden und somit Phase2 beginnt.(Spielsteine schieben)
-		m_turnDone = false;
 		if(m_isMill){
 			if(m_firstClickPending){
 				m_firstClickPending = false;
@@ -119,8 +115,6 @@ public class Board extends Mills{
 				m_firstClickRow = row;
 			} else {
 				takeStone(m_firstClickDimension, m_firstClickColumn, m_firstClickRow);
-				stoneCounterLost();
-				switchPlayer();
 				m_firstClickPending = true;
 				m_turnDone = true;
 			}

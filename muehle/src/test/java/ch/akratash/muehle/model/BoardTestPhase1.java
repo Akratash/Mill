@@ -323,7 +323,7 @@ public class BoardTestPhase1
         Board b = new Board();
         b.makeMovePhase1(0, 0, 0);
         b.makeMovePhase1(0, 1, 0);
-        b.makeMovePhase1(0, 2, 0);
+        b.makeMovePhase1(0, 2, 1);
 
         // test it
         boolean result = b.isActiveMill();
@@ -337,16 +337,18 @@ public class BoardTestPhase1
         // prepare test
         Board b = new Board();
         b.makeMovePhase1(0, 0, 0);
+        b.makeMovePhase1(1, 2, 0);
+
+        b.makeMovePhase1(0, 1, 0);
+        b.makeMovePhase1(2, 2, 0);
+
+        //Mill
         b.makeMovePhase1(0, 2, 0);
-        b.makeMovePhase1(0, 0, 1);
-        b.makeMovePhase1(0, 2, 1);
-        b.makeMovePhase1(1, 0, 2);
-        b.makeMovePhase1(0, 2, 2);
 
         // test it
-        b.takeStone(0, 0, 1);
+        b.takeStone(1, 2, 0);
         
         // check it
-        assertEquals(b.getPlayer(0, 0, 0), Player.NONE);
+        assertEquals(b.getPlayer(1, 2, 0), Player.NONE);
     }
 }
