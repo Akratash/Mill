@@ -16,6 +16,7 @@ public class Controller {
     private Board m_board = new Board();
     public Label playerLabel = new Label();
     public Label winnerLabel = new Label();
+    public Label stonesLostLabel = new Label();
 
     public GridPane innerGrid = new GridPane();
     public GridPane midGrid = new GridPane();
@@ -37,7 +38,7 @@ public class Controller {
         renderGrids();
     }
 
-    private void initGridPane(GridPane gridPane) {
+    /*private void initGridPane(GridPane gridPane) {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 Circle circle = new Circle();
@@ -46,7 +47,7 @@ public class Controller {
             
             }
         }
-    }
+    }*/
 
     @FXML
     private void handleSysoutButtonAction(ActionEvent event) {
@@ -133,6 +134,11 @@ public class Controller {
     }
 
     private void renderLabels() {
+        if(m_board.isActiveMill()){
+            System.out.println("TAKE STONE "+m_board.getActivePlayer()+"!");
+        }
+
+        stonesLostLabel.setText(Integer.toString(m_board.getStonesLost()));
         playerLabel.setText(m_board.getActivePlayer().toString());
         winnerLabel.setText(m_board.getWinner().toString());
     }
@@ -140,6 +146,7 @@ public class Controller {
     @FXML
     private void handleRowGridIndexAction00(MouseEvent event) {
         renderGrids();
+        renderLabels();
         m_board.makeMove(2, 0, 0);
         renderGrids();
         renderLabels();
@@ -148,6 +155,7 @@ public class Controller {
     @FXML
     private void handleRowGridIndexAction01(MouseEvent event) {
         renderGrids();
+        renderLabels();
         m_board.makeMove(2, 0, 1);
         renderGrids();
         renderLabels();
@@ -156,6 +164,7 @@ public class Controller {
     @FXML
     private void handleRowGridIndexAction02(MouseEvent event) {
         renderGrids();
+        renderLabels();
         m_board.makeMove(2, 0, 2);
         renderGrids();
         renderLabels();
@@ -164,6 +173,7 @@ public class Controller {
     @FXML
     private void handleRowGridIndexAction10(MouseEvent event) {
         renderGrids();
+        renderLabels();
         m_board.makeMove(2, 1, 0);
         renderGrids();
         renderLabels();
@@ -172,6 +182,7 @@ public class Controller {
     @FXML
     private void handleRowGridIndexAction12(MouseEvent event) {
         renderGrids();
+        renderLabels();
         m_board.makeMove(2, 1, 2);
         renderGrids();
         renderLabels();
@@ -180,6 +191,7 @@ public class Controller {
     @FXML
     private void handleRowGridIndexAction20(MouseEvent event) {
         renderGrids();
+        renderLabels();
         m_board.makeMove(2, 2, 0);
         renderGrids();
         renderLabels();
@@ -188,6 +200,7 @@ public class Controller {
     @FXML
     private void handleRowGridIndexAction21(MouseEvent event) {
         renderGrids();
+        renderLabels();
         m_board.makeMove(2, 2, 1);
         renderGrids();
         renderLabels();
@@ -196,6 +209,7 @@ public class Controller {
     @FXML
     private void handleRowGridIndexAction22(MouseEvent event) {
         renderGrids();
+        renderLabels();
         m_board.makeMove(2, 2, 2);
         renderGrids();
         renderLabels();
@@ -204,6 +218,7 @@ public class Controller {
     @FXML
     private void handleColGridIndexAction00(MouseEvent event) {
         renderGrids();
+        renderLabels();
         m_board.makeMove(1, 0, 0);
         renderGrids();
         renderLabels();
@@ -212,6 +227,7 @@ public class Controller {
     @FXML
     private void handleColGridIndexAction01(MouseEvent event) {
         renderGrids();
+        renderLabels();
         m_board.makeMove(1, 0, 1);
         renderGrids();
         renderLabels();
@@ -220,6 +236,7 @@ public class Controller {
     @FXML
     private void handleColGridIndexAction02(MouseEvent event) {
         renderGrids();
+        renderLabels();
         m_board.makeMove(1, 0, 2);
         renderGrids();
         renderLabels();
@@ -236,6 +253,7 @@ public class Controller {
     @FXML
     private void handleColGridIndexAction12(MouseEvent event) {
         renderGrids();
+        renderLabels();
         m_board.makeMove(1, 1, 2);
         renderGrids();
         renderLabels();
@@ -244,6 +262,7 @@ public class Controller {
     @FXML
     private void handleColGridIndexAction20(MouseEvent event) {
         renderGrids();
+        renderLabels();
         m_board.makeMove(1, 2, 0);
         renderGrids();
         renderLabels();
@@ -252,6 +271,7 @@ public class Controller {
     @FXML
     private void handleColGridIndexAction21(MouseEvent event) {
         renderGrids();
+        renderLabels();
         m_board.makeMove(1, 2, 1);
         renderGrids();
         renderLabels();
@@ -260,6 +280,7 @@ public class Controller {
     @FXML
     private void handleColGridIndexAction22(MouseEvent event) {
         renderGrids();
+        renderLabels();
         m_board.makeMove(1, 2, 2);
         renderGrids();
         renderLabels();
@@ -268,6 +289,7 @@ public class Controller {
     @FXML
     private void handleDimGridIndexAction00(MouseEvent event) {
         renderGrids();
+        renderLabels();
         m_board.makeMove(0, 0, 0);
         renderGrids();
         renderLabels();
@@ -276,6 +298,7 @@ public class Controller {
     @FXML
     private void handleDimGridIndexAction01(MouseEvent event) {
         renderGrids();
+        renderLabels();
         m_board.makeMove(0, 0, 1);
         renderGrids();
         renderLabels();
@@ -292,6 +315,7 @@ public class Controller {
     @FXML
     private void handleDimGridIndexAction10(MouseEvent event) {
         renderGrids();
+        renderLabels();
         m_board.makeMove(0, 1, 0);
         renderGrids();
         renderLabels();
@@ -300,6 +324,7 @@ public class Controller {
     @FXML
     private void handleDimGridIndexAction12(MouseEvent event) {
         renderGrids();
+        renderLabels();
         m_board.makeMove(0, 1, 2);
         renderGrids();
         renderLabels();
@@ -308,6 +333,7 @@ public class Controller {
     @FXML
     private void handleDimGridIndexAction20(MouseEvent event) {
         renderGrids();
+        renderLabels();
         m_board.makeMove(0, 2, 0);
         renderGrids();
         renderLabels();
@@ -316,6 +342,7 @@ public class Controller {
     @FXML
     private void handleDimGridIndexAction21(MouseEvent event) {
         renderGrids();
+        renderLabels();
         m_board.makeMove(0, 2, 1);
         renderGrids();
         renderLabels();
@@ -324,6 +351,7 @@ public class Controller {
     @FXML
     private void handleDimGridIndexAction22(MouseEvent event) {
         renderGrids();
+        renderLabels();
         m_board.makeMove(0, 2, 2);
         renderGrids();
         renderLabels();

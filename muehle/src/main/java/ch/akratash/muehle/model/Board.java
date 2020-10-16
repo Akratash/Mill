@@ -3,7 +3,7 @@ package ch.akratash.muehle.model;
 
 
 
-public class Board extends Mills{
+public class Board {
 
 	/**
 	 * 3Dimensionales Array welches den Zustand der gesetzten Steine beinhaltet
@@ -17,8 +17,6 @@ public class Board extends Mills{
 	private Player m_activePlayer;
 	private Player m_winner;
 	private boolean m_isMill;
-
-	public static final boolean IS_FLYING_ALLOWED = false;
 	
 
 	/**
@@ -62,6 +60,7 @@ public class Board extends Mills{
 	}
 
 
+
 	// Methode die zählt wievele Steine gesetzt wurden. Beginnt bei 9 und endet bei 0.
 	public void stoneCounter() {
 		if (m_activePlayer == Player.WHITE) {
@@ -74,10 +73,10 @@ public class Board extends Mills{
 	// Zählt pro Spieler die verlorenen Steine
 	public void stoneCounterLost() {
 		if (m_activePlayer == Player.WHITE) {
-			m_blackPlayerStonesLost += 1;
+			m_whitePlayerStonesLost += 1;
 		}
 		if (m_activePlayer == Player.BLACK) {
-			m_whitePlayerStonesLost += 1;
+			m_blackPlayerStonesLost += 1;
 		}
 	}
 
@@ -96,6 +95,12 @@ public class Board extends Mills{
 
 	// Variabeln für den Cache für einen Spielzug Phase 2.
 	private boolean m_firstClickPending = true;
+	private boolean m_takeClickPending = true;
+
+	private int m_takeClickDimension;
+	private int m_takeClickColumn;
+	private int m_takeClickRow;
+
 	private int m_firstClickDimension;
 	private int m_firstClickColumn;
 	private int m_firstClickRow;
@@ -103,7 +108,6 @@ public class Board extends Mills{
 
 	public void setFirstClickPendingTrue(){
 		m_firstClickPending = true;
-		stoneCounterLost();
 	}
 	/** 
 	 * Methode die alle Varianten des Spielzugs handelt
@@ -112,17 +116,15 @@ public class Board extends Mills{
 		// Erster Teil kontrolliert ob alle Spielsteine schon gesetzt wurden und somit Phase2 beginnt.(Spielsteine schieben)
 		m_turnDone = false;
 		if(m_isMill){
-			if(m_firstClickPending){
-				m_firstClickPending = false;
-				m_firstClickDimension = dimension;
-				m_firstClickColumn = column;
-				m_firstClickRow = row;
+			if(m_takeClickPending){
+				m_takeClickPending = false;
+				m_takeClickDimension = dimension;
+				m_takeClickColumn = column;
+				m_takeClickRow = row;
 			} else {
-				takeStone(m_firstClickDimension, m_firstClickColumn, m_firstClickRow);
-				stoneCounterLost();
-				switchPlayer();
-				m_firstClickPending = true;
+				takeStone(m_takeClickDimension, m_takeClickColumn, m_takeClickRow);
 				m_turnDone = true;
+				m_isMill = false;
 			}
 		}
 		
@@ -139,16 +141,25 @@ public class Board extends Mills{
 				m_firstClickColumn = column;
 				m_firstClickRow = row;
 			} else {
-				// Ausführen des Spielzugs Phase 2
-				makeMovePhase2(m_firstClickDimension, m_firstClickColumn, m_firstClickRow, dimension, column, row);
-				m_firstClickPending = true;
-				if(!m_isMill){
-					m_turnDone = true;
+				// Ausführen des Spielzugs Phase 2 oder 3
+				if(m_whitePlayerStonesLost == 6|| m_blackPlayerStonesLost == 6){
+					makeMovePhase3(m_firstClickDimension, m_firstClickColumn, m_firstClickRow, dimension, column, row);
+					if(!m_isMill){
+						m_turnDone = true;
+					}
+				} else {
+					makeMovePhase2(m_firstClickDimension, m_firstClickColumn, m_firstClickRow, dimension, column, row);
+					if(!m_isMill){
+						m_turnDone = true;
+					}
 				}
+
 			}
 		}
 		if(m_turnDone){
-			switchPlayer();
+			m_firstClickPending = true;
+			m_takeClickPending = true;
+			checkGameOver();
 		}
 	}
 
@@ -160,6 +171,9 @@ public class Board extends Mills{
 	protected boolean makeMovePhase1(int dimension, int column, int row) {
 		boolean result = false;
 		// setPlayerInt(m_player);
+		if(m_activePlayer==Player.NONE){
+			return false;
+		}
 
 		if (dimension < 0 || dimension > 2) {
 			return false;
@@ -190,6 +204,7 @@ public class Board extends Mills{
 		m_grid[dimension][column][row] = m_activePlayer;
 		stoneCounter();
 		checkMill(dimension, column, row);
+		switchPlayer();
 		result = true;
 
 		return result;
@@ -201,6 +216,11 @@ public class Board extends Mills{
 	 */
 	protected boolean makeMovePhase2(int dimension0, int column0, int row0, int dimension1, int column1, int row1) {
 		boolean result = false;
+
+		if(m_activePlayer==Player.NONE){
+			return false;
+		}
+
 		if (m_grid[dimension0][column0][row0] != m_activePlayer) {
 			return false;
 		}
@@ -221,8 +241,52 @@ public class Board extends Mills{
 
 		checkMill(dimension1, column1, row1);
 		result = true;
+		switchPlayer();
 
 		return result;
+	}
+
+
+	protected boolean makeMovePhase3(int dimension0, int column0, int row0, int dimension1, int column1, int row1){
+		boolean result = false;
+
+		if(m_activePlayer==Player.NONE){
+			return false;
+		}
+
+		if (m_grid[dimension0][column0][row0] != m_activePlayer) {
+			return false;
+		}
+
+		if (m_grid[dimension1][column1][row1] != Player.NONE) {
+			return false;
+		}
+
+		m_grid[dimension0][column0][row0] = Player.NONE;
+		m_grid[dimension1][column1][row1] = m_activePlayer;
+
+		checkMill(dimension1, column1, row1);
+		result = true;
+		switchPlayer();
+
+		return result;
+	}
+
+
+	//Check ob das Spiel vorbei ist und setzt den Gewinner
+	public void checkGameOver(){
+		int stonesLost = getStonesLost();
+
+		if(stonesLost == 7){
+			m_gameOver = true;
+			if(m_activePlayer==Player.BLACK){
+				m_winner = Player.WHITE;
+			}
+			if(m_activePlayer==Player.WHITE){
+				m_winner = Player.BLACK;
+			}
+		}
+
 	}
 
 	// Prüft ob aktive Mühlen vorhanden sind.
@@ -320,6 +384,9 @@ public class Board extends Mills{
 	public boolean takeStone(int dim, int col, int row){
 		boolean result = false;
 		// setPlayerInt(m_player);
+		if(m_activePlayer==Player.NONE){
+			return false;
+		}
 		if(!m_isMill){
 			return false;
 		}
@@ -337,13 +404,15 @@ public class Board extends Mills{
 			return false;
 		}
 
-		if (m_grid[dim][col][row] ==Player.NONE){
+		if (m_grid[dim][col][row] ==Player.NONE||m_grid[dim][col][row]==m_activePlayer){
 			return false;
 		}
+
 		m_grid[dim][col][row]=Player.NONE;
 		stoneCounterLost();
 		m_isMill=false;
 		result = true;
+		
 
 		return result;
 	}
@@ -351,8 +420,7 @@ public class Board extends Mills{
 	 * Gibt an ob das Spiel vorbei ist.
 	 */
 	public boolean isGameOver() {
-		// Wenn ein Spieler weniger als 3 Steine mehr hat oder keinen mehr bewegen kann
-		// hat er das Spiel verloren.
+
 		return m_gameOver;
 	}
 
@@ -376,6 +444,19 @@ public class Board extends Mills{
 	 */
 	public Player getActivePlayer() {
 		return m_activePlayer;
+	}
+
+	public int getStonesLost(){
+		int result = 0;
+		if(m_activePlayer==Player.WHITE){
+			result = m_whitePlayerStonesLost;
+		}
+
+		if(m_activePlayer==Player.BLACK){
+			result = m_blackPlayerStonesLost;
+		}
+
+		return result;
 	}
 
 }
