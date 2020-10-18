@@ -27,8 +27,8 @@ public class Board {
 	 */
 	public Board() {
 		// Initialisieren des Boards inklusive Counter für die Steine.
-		m_whitePlayerStones = 9;
-		m_blackPlayerStones = 9;
+		m_whitePlayerStones = 5;
+		m_blackPlayerStones = 5;
 		m_blackPlayerStonesLost = 0;
 		m_whitePlayerStonesLost = 0;
 
@@ -73,10 +73,10 @@ public class Board {
 	// Zählt pro Spieler die verlorenen Steine
 	public void stoneCounterLost() {
 		if (m_activePlayer == Player.WHITE) {
-			m_whitePlayerStonesLost += 1;
+			m_blackPlayerStonesLost += 1;
 		}
 		if (m_activePlayer == Player.BLACK) {
-			m_blackPlayerStonesLost += 1;
+			m_whitePlayerStonesLost += 1;
 		}
 	}
 
@@ -84,6 +84,9 @@ public class Board {
 	 * Methode um den Spieler nach vollendetem Zug zu wechseln
 	 */
 	private void switchPlayer() {
+		if(m_isMill){
+			return;
+		}
 		if (m_gameOver) {
 			m_activePlayer = Player.NONE;
 		} else if (m_activePlayer == Player.BLACK) {
@@ -106,9 +109,6 @@ public class Board {
 	private int m_firstClickRow;
 	private boolean m_turnDone = false;
 
-	public void setFirstClickPendingTrue(){
-		m_firstClickPending = true;
-	}
 	/** 
 	 * Methode die alle Varianten des Spielzugs handelt
 	 */
@@ -116,51 +116,43 @@ public class Board {
 		// Erster Teil kontrolliert ob alle Spielsteine schon gesetzt wurden und somit Phase2 beginnt.(Spielsteine schieben)
 		m_turnDone = false;
 		if(m_isMill){
-			if(m_takeClickPending){
-				m_takeClickPending = false;
-				m_takeClickDimension = dimension;
-				m_takeClickColumn = column;
-				m_takeClickRow = row;
+			takeStone(dimension, column, row);
+			m_turnDone = true;			
+		} else {
+		
+			if (m_blackPlayerStones > 0) {
+				makeMovePhase1(dimension, column, row);
+
 			} else {
-				takeStone(m_takeClickDimension, m_takeClickColumn, m_takeClickRow);
-				m_turnDone = true;
-				m_isMill = false;
+				// Prüft ob der Spieler schon einen Zielpunkt für den Stein gewählt hat wenn nicht speichert er die koordinaten in die Variabeln.
+				if (!m_firstClickPending) {
+					m_firstClickPending = true;
+					m_firstClickDimension = dimension;
+					m_firstClickColumn = column;
+					m_firstClickRow = row;
+				} else {
+					// Ausführen des Spielzugs Phase 2 oder 3
+					if(m_whitePlayerStonesLost == 6|| m_blackPlayerStonesLost == 6){
+						makeMovePhase3(m_firstClickDimension, m_firstClickColumn, m_firstClickRow, dimension, column, row);
+						
+					} else {
+						makeMovePhase2(m_firstClickDimension, m_firstClickColumn, m_firstClickRow, dimension, column, row);
+						
+						
+					}
+					m_firstClickPending = false;
+
+					
+				}
+				checkGameOver();
+			}
+			if(m_turnDone){
+					
+					//m_takeClickPending = true;
+										
 			}
 		}
 		
-		if (m_blackPlayerStones > 0) {
-			makeMovePhase1(dimension, column, row);
-			if(!m_isMill){
-				m_turnDone = true;
-			}
-		} else {
-			// Prüft ob der Spieler schon einen Zielpunkt für den Stein gewählt hat wenn nicht speichert er die koordinaten in die Variabeln.
-			if (m_firstClickPending) {
-				m_firstClickPending = false;
-				m_firstClickDimension = dimension;
-				m_firstClickColumn = column;
-				m_firstClickRow = row;
-			} else {
-				// Ausführen des Spielzugs Phase 2 oder 3
-				if(m_whitePlayerStonesLost == 6|| m_blackPlayerStonesLost == 6){
-					makeMovePhase3(m_firstClickDimension, m_firstClickColumn, m_firstClickRow, dimension, column, row);
-					if(!m_isMill){
-						m_turnDone = true;
-					}
-				} else {
-					makeMovePhase2(m_firstClickDimension, m_firstClickColumn, m_firstClickRow, dimension, column, row);
-					if(!m_isMill){
-						m_turnDone = true;
-					}
-				}
-
-			}
-		}
-		if(m_turnDone){
-			m_firstClickPending = true;
-			m_takeClickPending = true;
-			checkGameOver();
-		}
 	}
 
 	/*
@@ -204,7 +196,9 @@ public class Board {
 		m_grid[dimension][column][row] = m_activePlayer;
 		stoneCounter();
 		checkMill(dimension, column, row);
-		switchPlayer();
+		if(!m_isMill){
+			switchPlayer();
+		}
 		result = true;
 
 		return result;
@@ -241,7 +235,9 @@ public class Board {
 
 		checkMill(dimension1, column1, row1);
 		result = true;
-		switchPlayer();
+		if(!m_isMill){
+			switchPlayer();
+		}
 
 		return result;
 	}
@@ -267,7 +263,9 @@ public class Board {
 
 		checkMill(dimension1, column1, row1);
 		result = true;
-		switchPlayer();
+		if(!m_isMill){
+			switchPlayer();
+		}
 
 		return result;
 	}
@@ -275,18 +273,13 @@ public class Board {
 
 	//Check ob das Spiel vorbei ist und setzt den Gewinner
 	public void checkGameOver(){
-		int stonesLost = getStonesLost();
-
-		if(stonesLost == 7){
+		if(m_blackPlayerStonesLost > m_blackPlayerStones - 3){
 			m_gameOver = true;
-			if(m_activePlayer==Player.BLACK){
-				m_winner = Player.WHITE;
-			}
-			if(m_activePlayer==Player.WHITE){
-				m_winner = Player.BLACK;
-			}
+			m_winner = Player.WHITE;
+		} else if (m_whitePlayerStonesLost > m_whitePlayerStones - 3){
+			m_gameOver = true;
+			m_winner = Player.BLACK;
 		}
-
 	}
 
 	// Prüft ob aktive Mühlen vorhanden sind.
@@ -413,6 +406,7 @@ public class Board {
 		m_isMill=false;
 		result = true;
 		
+		switchPlayer();
 
 		return result;
 	}
@@ -459,4 +453,36 @@ public class Board {
 		return result;
 	}
 
+	public int getBlackPlayerStones() {
+		return m_blackPlayerStones;
+	}
+
+	public int getWhitePlayerStones() {
+		return m_whitePlayerStones;
+	}
+
+	public int getBlackPlayerStonesLost() {
+		return m_blackPlayerStonesLost;
+	}
+
+	public int getWhitePlayerStonesLost() {
+		return m_whitePlayerStonesLost;
+	}
+
+	public boolean isMill() {
+		return m_isMill;
+	}
+
+	public boolean isFirstClickPending() {
+		return m_firstClickPending;
+	}
+
+
+	public boolean isTakeClickPending() {
+		return m_takeClickPending;
+	}
+
+	public boolean isTurnDone() {
+		return m_turnDone;
+	}
 }

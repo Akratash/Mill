@@ -349,6 +349,6 @@ public class BoardTestPhase1
         b.takeStone(1, 2, 0);
         
         // check it
-        assertEquals(b.getPlayer(1, 2, 0), Player.NONE);
+        assertEquals(Player.NONE, b.getPlayer(1, 2, 0));
     }
 }

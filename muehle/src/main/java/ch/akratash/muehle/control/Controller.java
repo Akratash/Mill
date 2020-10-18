@@ -18,6 +18,17 @@ public class Controller {
     public Label winnerLabel = new Label();
     public Label stonesLostLabel = new Label();
 
+    public Label blackPlayerStonesLostLabel = new Label();
+    public Label whitePlayerStonesLostLabel = new Label();
+    public Label blackPlayerStonesLabel = new Label();
+    public Label whitePlayerStonesLabel = new Label();
+    public Label isGameOverLabel = new Label();
+    public Label isMillLabel = new Label();
+    public Label isFirstClickPendingLabel = new Label();
+    public Label isTakeClickPendingLabel = new Label();
+    public Label isTurnDoneLabel = new Label();
+
+
     public GridPane innerGrid = new GridPane();
     public GridPane midGrid = new GridPane();
     public GridPane outerGrid = new GridPane();
@@ -141,6 +152,18 @@ public class Controller {
         stonesLostLabel.setText(Integer.toString(m_board.getStonesLost()));
         playerLabel.setText(m_board.getActivePlayer().toString());
         winnerLabel.setText(m_board.getWinner().toString());
+
+        winnerLabel.setText(m_board.getWinner().toString());
+
+        blackPlayerStonesLostLabel.setText("B Stones lost: " + m_board.getBlackPlayerStonesLost());
+        whitePlayerStonesLostLabel.setText("W Stones lost: " + m_board.getWhitePlayerStonesLost());
+        blackPlayerStonesLabel.setText("B Stones: " + m_board.getBlackPlayerStones());
+        whitePlayerStonesLabel.setText("W Stones: " + m_board.getWhitePlayerStones());
+        isGameOverLabel.setText("GameOver: " + m_board.isGameOver());
+        isMillLabel.setText("Mill: " + m_board.isMill());
+        isFirstClickPendingLabel.setText("FirstClickPend: " + m_board.isFirstClickPending());
+        isTakeClickPendingLabel.setText("TakeClickPend: " + m_board.isTakeClickPending());
+        isTurnDoneLabel.setText("TurnDone: " + m_board.isTurnDone());
     }
 
     @FXML
