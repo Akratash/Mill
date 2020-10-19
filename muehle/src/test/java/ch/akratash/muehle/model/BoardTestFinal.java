@@ -243,4 +243,32 @@ public class BoardTestFinal {
 
     }
 
+    @Test
+    public void isPartOfMillExpectTrue(){
+        // prepare
+        Board b = new Board();
+
+        b.makeMove(0, 0, 0);
+        b.makeMove(1, 0, 0);
+
+        b.makeMove(0, 1, 0);
+        b.makeMove(1, 1, 0);
+
+        b.makeMove(0, 2, 1);
+        b.makeMove(1, 2, 0);
+
+        b.takeStone(0, 2, 1);
+
+        b.makeMove(0, 2, 0);
+        b.takeStone(1, 1, 0);
+        
+        
+
+        //test
+        b.isActiveMill();
+        //check
+        assertTrue(b.isPartOfMill(1,1,0));
+
+    }
+
 }

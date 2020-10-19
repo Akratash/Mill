@@ -17,6 +17,7 @@ public class Board {
 	private Player m_activePlayer;
 	private Player m_winner;
 	private boolean m_isMill;
+	private boolean m_isPartOfMill;
 	
 
 	/**
@@ -27,13 +28,14 @@ public class Board {
 	 */
 	public Board() {
 		// Initialisieren des Boards inklusive Counter für die Steine.
-		m_whitePlayerStones = 5;
-		m_blackPlayerStones = 5;
+		m_whitePlayerStones = 9;
+		m_blackPlayerStones = 9;
 		m_blackPlayerStonesLost = 0;
 		m_whitePlayerStonesLost = 0;
 
 		m_gameOver = false;
 		m_isMill = false;
+		m_isPartOfMill = false;
 		m_grid = new Player[3][3][3];
 		m_activePlayer = Player.WHITE;
 		m_winner = Player.NONE;
@@ -99,10 +101,6 @@ public class Board {
 	// Variabeln für den Cache für einen Spielzug Phase 2.
 	private boolean m_firstClickPending = true;
 	private boolean m_takeClickPending = true;
-
-	private int m_takeClickDimension;
-	private int m_takeClickColumn;
-	private int m_takeClickRow;
 
 	private int m_firstClickDimension;
 	private int m_firstClickColumn;
@@ -273,10 +271,10 @@ public class Board {
 
 	//Check ob das Spiel vorbei ist und setzt den Gewinner
 	public void checkGameOver(){
-		if(m_blackPlayerStonesLost > m_blackPlayerStones - 3){
+		if(m_blackPlayerStonesLost > 6){
 			m_gameOver = true;
 			m_winner = Player.WHITE;
-		} else if (m_whitePlayerStonesLost > m_whitePlayerStones - 3){
+		} else if (m_whitePlayerStonesLost > 6){
 			m_gameOver = true;
 			m_winner = Player.BLACK;
 		}
@@ -372,7 +370,20 @@ public class Board {
 			return result;
 		}
 
-
+	// Prüft ob der zu entfernende Stein zu einer aktiven Mühle gehört.
+	public boolean isPartOfMill(final int lastInsertedDim, final int lastInsertedCol, final int lastInsertedRow){
+		boolean result = false;
+		Player lastInsertedPlayer = m_grid[lastInsertedDim][lastInsertedCol][lastInsertedRow];
+			if((checkMillsDim(lastInsertedDim, lastInsertedCol, lastInsertedRow, lastInsertedPlayer)
+			|| checkMillsCol(lastInsertedDim, lastInsertedCol, lastInsertedRow, lastInsertedPlayer)
+			|| checkMillsRow(lastInsertedDim, lastInsertedCol, lastInsertedRow, lastInsertedPlayer))){
+				m_isPartOfMill = true;
+			}else{
+				m_isPartOfMill = false;
+			}
+		result = m_isPartOfMill;
+		return result;
+		}
 	// Bei aktiver Mühle wird ein Spielstein nach Wahl vom Gegner entfernt.
 	public boolean takeStone(int dim, int col, int row){
 		boolean result = false;
@@ -398,6 +409,12 @@ public class Board {
 		}
 
 		if (m_grid[dim][col][row] ==Player.NONE||m_grid[dim][col][row]==m_activePlayer){
+			return false;
+		}
+
+		isPartOfMill(dim, col, row);
+
+		if (m_isPartOfMill){
 			return false;
 		}
 

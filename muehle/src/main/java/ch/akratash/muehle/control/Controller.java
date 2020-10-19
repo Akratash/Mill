@@ -36,29 +36,8 @@ public class Controller {
     @FXML
     private void handleRowGridAction(ActionEvent event) {
         m_board = new Board();
-
-        /*Circle circle = new Circle();
-        for (int i = 0; i < 3; i++) {
-            GridPane.setColumnIndex(circle, i);
-            for (int j = 0; j < 3; j++) {
-                GridPane.setRowIndex(circle, j);
-                renderGrids();
-
-            }
-        }*/
         renderGrids();
     }
-
-    /*private void initGridPane(GridPane gridPane) {
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                Circle circle = new Circle();
-                GridPane.setColumnIndex(circle, i);
-                GridPane.setRowIndex(circle, j);
-            
-            }
-        }
-    }*/
 
     @FXML
     private void handleSysoutButtonAction(ActionEvent event) {
@@ -145,15 +124,12 @@ public class Controller {
     }
 
     private void renderLabels() {
-        if(m_board.isActiveMill()){
-            System.out.println("TAKE STONE "+m_board.getActivePlayer()+"!");
-        }
 
         stonesLostLabel.setText(Integer.toString(m_board.getStonesLost()));
         playerLabel.setText(m_board.getActivePlayer().toString());
         winnerLabel.setText(m_board.getWinner().toString());
 
-        winnerLabel.setText(m_board.getWinner().toString());
+        winnerLabel.setText("Gewinner: "+m_board.getWinner().toString());
 
         blackPlayerStonesLostLabel.setText("B Stones lost: " + m_board.getBlackPlayerStonesLost());
         whitePlayerStonesLostLabel.setText("W Stones lost: " + m_board.getWhitePlayerStonesLost());
