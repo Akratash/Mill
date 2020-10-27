@@ -1,7 +1,7 @@
 package ch.akratash.muehle.control;
-
 import ch.akratash.muehle.view.Gui;
 import javafx.application.Application;
+
 
 
 public class GameManager {

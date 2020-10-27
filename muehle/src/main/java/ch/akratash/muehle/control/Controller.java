@@ -1,11 +1,24 @@
 package ch.akratash.muehle.control;
 
+import ch.akratash.muehle.model.Person;
+
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import ch.akratash.muehle.model.Board;
 import ch.akratash.muehle.model.Player;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Paint;
@@ -28,10 +41,41 @@ public class Controller {
     public Label isTakeClickPendingLabel = new Label();
     public Label isTurnDoneLabel = new Label();
 
-
     public GridPane innerGrid = new GridPane();
     public GridPane midGrid = new GridPane();
     public GridPane outerGrid = new GridPane();
+    public TableView<Person> MainTable = new TableView<Person>();
+    
+    
+
+
+    @FXML
+    private TableColumn<Person, String> playerName;
+    private TableColumn<Person, String> playerColor;
+    private TableColumn<Person, String> playerPoints;
+    private TableColumn<Person, String> playerRounds;
+
+    public void initialize(URL url, ResourceBundle rb){
+
+        //Die Spalten im TableView initialisieren.
+        playerName.setCellValueFactory(new PropertyValueFactory<Person,String>("playerName"));
+        playerColor.setCellValueFactory(new PropertyValueFactory<Person,String>("playerColor"));
+        playerPoints.setCellValueFactory(new PropertyValueFactory<Person,String>("playerPoints"));
+        playerRounds.setCellValueFactory(new PropertyValueFactory<Person,String>("playerRounds"));
+
+        //Daten laden
+        MainTable.setItems(getPeople());
+
+        
+    }
+
+    public  ObservableList<Person> getPeople(){
+        ObservableList<Person> people = FXCollections.observableArrayList();
+        people.add(new Person("Akratash","White"));
+        people.add(new Person("Kalash","Black"));
+
+        return people;
+    }
 
     @FXML
     private void handleRowGridAction(ActionEvent event) {
@@ -41,7 +85,7 @@ public class Controller {
 
     @FXML
     private void handleSysoutButtonAction(ActionEvent event) {
-        System.out.println(m_board.getPlayer(0, 0, 0));  
+        MainTable.setItems(getPeople());
     }
 
     private void renderGrids() {
@@ -50,11 +94,14 @@ public class Controller {
         renderOuterGrid();
     }
 
+    // TableView
+
+    // Grids
     private void renderInnerGrid() {
         for (int col = 0; col < 3; col++) {
             for (int row = 0; row < 3; row++) {
                 for (Node node : innerGrid.getChildren()) {
-                  
+
                     if (node instanceof Circle && GridPane.getColumnIndex(node) == col
                             && GridPane.getRowIndex(node) == row) {
                         Circle circle = (Circle) node;
@@ -129,7 +176,7 @@ public class Controller {
         playerLabel.setText(m_board.getActivePlayer().toString());
         winnerLabel.setText(m_board.getWinner().toString());
 
-        winnerLabel.setText("Gewinner: "+m_board.getWinner().toString());
+        winnerLabel.setText("Gewinner: " + m_board.getWinner().toString());
 
         blackPlayerStonesLostLabel.setText("B Stones lost: " + m_board.getBlackPlayerStonesLost());
         whitePlayerStonesLostLabel.setText("W Stones lost: " + m_board.getWhitePlayerStonesLost());

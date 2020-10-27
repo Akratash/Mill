@@ -85,7 +85,7 @@ public class Board {
 	/**
 	 * Methode um den Spieler nach vollendetem Zug zu wechseln
 	 */
-	private void switchPlayer() {
+	public void switchPlayer() {
 		if(m_isMill){
 			return;
 		}
@@ -422,7 +422,7 @@ public class Board {
 		stoneCounterLost();
 		m_isMill=false;
 		result = true;
-		
+		checkGameOver();
 		switchPlayer();
 
 		return result;
@@ -468,6 +468,11 @@ public class Board {
 		}
 
 		return result;
+	}
+
+	public void endTurn(){
+		m_isMill = false;
+		switchPlayer();
 	}
 
 	public int getBlackPlayerStones() {

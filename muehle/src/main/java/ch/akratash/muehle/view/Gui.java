@@ -15,7 +15,7 @@ public class Gui extends Application {
 	public void start(Stage primaryStage) {
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("gui.fxml"));
-			Scene scene = new Scene(root, 1200, 800);
+			Scene scene = new Scene(root, 1980, 720);
 			primaryStage.setScene(scene);
 			primaryStage.show();
 		} catch (Exception e) {
