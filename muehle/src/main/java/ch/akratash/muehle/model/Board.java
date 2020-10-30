@@ -18,6 +18,10 @@ public class Board {
 	private Player m_winner;
 	private boolean m_isMill;
 	private boolean m_isPartOfMill;
+	private int m_turnWithoutMill;
+	private int m_playerWhitePoints;
+	private int m_playerBlackPoints;
+
 	
 
 	/**
@@ -32,6 +36,9 @@ public class Board {
 		m_blackPlayerStones = 9;
 		m_blackPlayerStonesLost = 0;
 		m_whitePlayerStonesLost = 0;
+		m_turnWithoutMill = 0;
+		m_playerBlackPoints = 0;
+		m_playerWhitePoints = 0;
 
 		m_gameOver = false;
 		m_isMill = false;
@@ -115,7 +122,8 @@ public class Board {
 		m_turnDone = false;
 		if(m_isMill){
 			takeStone(dimension, column, row);
-			m_turnDone = true;			
+			m_turnDone = true;
+			m_turnWithoutMill = 0;			
 		} else {
 		
 			if (m_blackPlayerStones > 0) {
@@ -277,6 +285,9 @@ public class Board {
 		} else if (m_whitePlayerStonesLost > 6){
 			m_gameOver = true;
 			m_winner = Player.BLACK;
+		} else if (m_turnWithoutMill == 40){
+			m_gameOver = true;
+			m_winner = Player.DRAW;
 		}
 	}
 
@@ -289,6 +300,7 @@ public class Board {
 				m_isMill = true;
 			}else{
 				m_isMill = false;
+				m_turnWithoutMill += 1;
 			}
 		}
 
@@ -377,7 +389,20 @@ public class Board {
 			if((checkMillsDim(lastInsertedDim, lastInsertedCol, lastInsertedRow, lastInsertedPlayer)
 			|| checkMillsCol(lastInsertedDim, lastInsertedCol, lastInsertedRow, lastInsertedPlayer)
 			|| checkMillsRow(lastInsertedDim, lastInsertedCol, lastInsertedRow, lastInsertedPlayer))){
-				m_isPartOfMill = true;
+				if(m_activePlayer==Player.BLACK){
+					if(m_blackPlayerStonesLost==6){
+						return false;
+					}
+				}else{
+					m_isPartOfMill = true;
+				}
+				if(m_activePlayer==Player.WHITE){
+					if(m_whitePlayerStonesLost==6){
+						return false;
+					}
+				}else{
+					m_isPartOfMill = true;
+				}
 			}else{
 				m_isPartOfMill = false;
 			}
@@ -420,12 +445,26 @@ public class Board {
 
 		m_grid[dim][col][row]=Player.NONE;
 		stoneCounterLost();
+		
 		m_isMill=false;
 		result = true;
+		if(m_activePlayer==Player.WHITE){
+			
+		}
 		checkGameOver();
 		switchPlayer();
 
 		return result;
+	}
+
+
+	public void gamePoints(){
+		if(m_activePlayer == Player.WHITE){
+			m_playerWhitePoints +=10;
+		}
+		if(m_activePlayer == Player.BLACK){
+			m_playerBlackPoints +=10;
+		}
 	}
 	/*
 	 * Gibt an ob das Spiel vorbei ist.
@@ -487,6 +526,10 @@ public class Board {
 		return m_blackPlayerStonesLost;
 	}
 
+	public int getTurnWithoutMill(){
+		return m_turnWithoutMill;
+	}
+
 	public int getWhitePlayerStonesLost() {
 		return m_whitePlayerStonesLost;
 	}
@@ -506,5 +549,21 @@ public class Board {
 
 	public boolean isTurnDone() {
 		return m_turnDone;
+	}
+
+	public int getPlayerWhitePoints() {
+		return this.m_playerWhitePoints;
+	}
+
+	public void setPlayerWhitePoints(int m_playerWhitePoints) {
+		this.m_playerWhitePoints = m_playerWhitePoints;
+	}
+
+	public int getPlayerBlackPoints() {
+		return this.m_playerBlackPoints;
+	}
+
+	public void setPlayerBlackPoints(int m_playerBlackPoints) {
+		this.m_playerBlackPoints = m_playerBlackPoints;
 	}
 }

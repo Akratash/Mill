@@ -40,6 +40,7 @@ public class Controller {
     public Label isFirstClickPendingLabel = new Label();
     public Label isTakeClickPendingLabel = new Label();
     public Label isTurnDoneLabel = new Label();
+    public Label turnWithoutMill = new Label();
 
     public GridPane innerGrid = new GridPane();
     public GridPane midGrid = new GridPane();
@@ -85,7 +86,7 @@ public class Controller {
 
     @FXML
     private void handleSysoutButtonAction(ActionEvent event) {
-        MainTable.setItems(getPeople());
+       m_board.endTurn();
     }
 
     private void renderGrids() {
@@ -187,6 +188,10 @@ public class Controller {
         isFirstClickPendingLabel.setText("FirstClickPend: " + m_board.isFirstClickPending());
         isTakeClickPendingLabel.setText("TakeClickPend: " + m_board.isTakeClickPending());
         isTurnDoneLabel.setText("TurnDone: " + m_board.isTurnDone());
+        turnWithoutMill.setText("turnWithoutMillCounter: "+m_board.getTurnWithoutMill());
+        
+    
+        
     }
 
     @FXML
