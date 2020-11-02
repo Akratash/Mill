@@ -2,8 +2,8 @@ package ch.akratash.muehle.model;
 
 public class Game {
 
-    public int m_whitePlayerPoints;
-    public int m_blackPlayerPoints;
+    public static int m_whitePlayerPoints;
+    public static int m_blackPlayerPoints;
     private int m_bestOfRounds;
     private String m_whitePlayerName;
     private String m_blackPlayerName;
@@ -13,8 +13,8 @@ public class Game {
     public Game(){
         
         m_bestOfRounds = 0;
-        m_whitePlayerPoints = 0;
-        m_blackPlayerPoints = 0;
+        m_whitePlayerPoints = 1000;
+        m_blackPlayerPoints = 100;
  
      }
  
@@ -27,19 +27,19 @@ public class Game {
      }
  
     public int getwhitePlayerPoints() {
-        return this.m_whitePlayerPoints;
+        return Game.m_whitePlayerPoints;
     }
 
     public void setWhitePlayerPoints(int m_whitePlayerPoints) {
-        this.m_whitePlayerPoints = m_whitePlayerPoints;
+        Game.m_whitePlayerPoints = m_whitePlayerPoints;
     }
 
     public int getBlackPlayerPoints() {
-        return this.m_blackPlayerPoints;
+        return Game.m_blackPlayerPoints;
     }
 
     public void setBlackPlayerPoints(int m_blackPlayerPoints) {
-        this.m_blackPlayerPoints = m_blackPlayerPoints;
+        Game.m_blackPlayerPoints = m_blackPlayerPoints;
     }
 
     public int getBestOfRounds() {

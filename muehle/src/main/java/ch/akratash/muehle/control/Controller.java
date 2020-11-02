@@ -89,6 +89,12 @@ public class Controller {
     }
 
     @FXML
+    private void newGame(ActionEvent event) {
+        m_game = new Game();
+        renderGrids();
+    }
+
+    @FXML
     private void handleSysoutButtonAction(ActionEvent event) {
        m_board.endTurn();
     }
@@ -194,7 +200,7 @@ public class Controller {
         isTurnDoneLabel.setText("TurnDone: " + m_board.isTurnDone());
         turnWithoutMill.setText("turnWithoutMillCounter: "+m_board.getTurnWithoutMill());
         blackPlayerPoints.setText("Black Player Points: "+m_game.getBlackPlayerPoints());
-        whitePlayerPoints.setText("White Player Points: "+m_game.getwhitePlayerPoints());
+        whitePlayerPoints.setText("White Player Points: "+m_board.getwhitePlayerPoints());
 
     
         

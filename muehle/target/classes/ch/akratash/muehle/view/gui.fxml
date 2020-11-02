@@ -14,7 +14,7 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="786.0" prefWidth="1413.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.akratash.muehle.control.Controller">
    <children>
       <Button fx:id="sysout0" layoutX="860.0" layoutY="43.0" mnemonicParsing="false" onAction="#handleSysoutButtonAction" text="Zug beenden" />
-      <Button fx:id="testbutton" layoutX="87.0" layoutY="55.0" mnemonicParsing="false" onAction="#handleRowGridAction" text="New Game" />
+      <Button fx:id="testbutton" layoutX="87.0" layoutY="55.0" mnemonicParsing="false" onAction="#handleRowGridAction" text="New Round" />
       <AnchorPane layoutX="24.0" layoutY="-230.0" prefHeight="200.0" prefWidth="200.0" />
       <Pane id="Pane" layoutX="186.0" layoutY="93.0" prefHeight="600.0" prefWidth="600.0" styleClass="bodybg" stylesheets="@application.css">
          <children>
@@ -106,5 +106,6 @@
       </TableView>
       <Label fx:id="blackPlayerPoints" layoutX="42.0" layoutY="266.0" prefHeight="40.0" prefWidth="227.0" translateX="900.0" />
       <Label fx:id="whitePlayerPoints" layoutX="52.0" layoutY="276.0" prefHeight="40.0" prefWidth="215.0" translateX="900.0" translateY="100.0" />
+      <Button fx:id="newgame" layoutX="97.0" layoutY="65.0" mnemonicParsing="false" onAction="#newGame" text="New Game" translateX="770.0" translateY="50.0" />
    </children>
 </AnchorPane>

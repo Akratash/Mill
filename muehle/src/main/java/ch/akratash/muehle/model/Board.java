@@ -457,10 +457,10 @@ public class Board extends Game {
 
 	public void gamePoints(){
 		if(m_activePlayer == Player.WHITE){
-			super.setWhitePlayerPoints(m_whitePlayerPoints+=10);
+			Game.m_whitePlayerPoints+=10;
 		}
 		if(m_activePlayer == Player.BLACK){
-			super.setBlackPlayerPoints(m_blackPlayerPoints+=10);
+			Game.m_blackPlayerPoints+=10;
 		}
 	}
 	/*
