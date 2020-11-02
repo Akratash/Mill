@@ -1,13 +1,31 @@
 package ch.akratash.muehle.model;
 
-public class Game extends Board{
+public class Game {
 
-    private int m_whitePlayerPoints;
-    private int m_blackPlayerPoints;
+    public int m_whitePlayerPoints;
+    public int m_blackPlayerPoints;
     private int m_bestOfRounds;
     private String m_whitePlayerName;
     private String m_blackPlayerName;
 
+
+    
+    public Game(){
+        
+        m_bestOfRounds = 0;
+        m_whitePlayerPoints = 0;
+        m_blackPlayerPoints = 0;
+ 
+     }
+ 
+     public void pointCounter(){
+         
+     }
+ 
+     public void roundCounter(){
+ 
+     }
+ 
     public int getwhitePlayerPoints() {
         return this.m_whitePlayerPoints;
     }
@@ -46,22 +64,6 @@ public class Game extends Board{
 
     public void setBlackPlayerName(String m_blackPlayerName) {
         this.m_blackPlayerName = m_blackPlayerName;
-    }
-
-    public Game(){
-
-       m_bestOfRounds = 0;
-       m_whitePlayerPoints = 0;
-       m_blackPlayerPoints = 0;
-
-    }
-
-    public void pointCounter(){
-        
-    }
-
-    public void roundCounter(){
-        
     }
 
 

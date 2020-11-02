@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 
 import ch.akratash.muehle.model.Board;
 import ch.akratash.muehle.model.Player;
+import ch.akratash.muehle.model.Game;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -27,6 +28,7 @@ import javafx.scene.shape.Circle;
 public class Controller {
 
     private Board m_board = new Board();
+    private Game m_game = new Game();
     public Label playerLabel = new Label();
     public Label winnerLabel = new Label();
     public Label stonesLostLabel = new Label();
@@ -41,6 +43,8 @@ public class Controller {
     public Label isTakeClickPendingLabel = new Label();
     public Label isTurnDoneLabel = new Label();
     public Label turnWithoutMill = new Label();
+    public Label blackPlayerPoints = new Label();
+    public Label whitePlayerPoints = new Label();
 
     public GridPane innerGrid = new GridPane();
     public GridPane midGrid = new GridPane();
@@ -110,7 +114,7 @@ public class Controller {
                             circle.setFill(Paint.valueOf("white"));
                             circle.setOpacity(1);
                         } else if (Player.BLACK == m_board.getPlayer(2, col, row)) {
-                            circle.setFill(Paint.valueOf("black"));
+                            circle.setFill(Paint.valueOf("darkgrey"));
                             circle.setOpacity(1);
                         } else {
                             circle.setOpacity(0);
@@ -136,7 +140,7 @@ public class Controller {
                             circle.setFill(Paint.valueOf("white"));
                             circle.setOpacity(1);
                         } else if (Player.BLACK == m_board.getPlayer(1, col, row)) {
-                            circle.setFill(Paint.valueOf("black"));
+                            circle.setFill(Paint.valueOf("darkgrey"));
                             circle.setOpacity(1);
                         } else {
                             circle.setOpacity(0);
@@ -160,7 +164,7 @@ public class Controller {
                             circle.setFill(Paint.valueOf("white"));
                             circle.setOpacity(1);
                         } else if (Player.BLACK == m_board.getPlayer(0, col, row)) {
-                            circle.setFill(Paint.valueOf("black"));
+                            circle.setFill(Paint.valueOf("darkgrey"));
                             circle.setOpacity(1);
                         } else {
                             circle.setOpacity(0);
@@ -189,7 +193,9 @@ public class Controller {
         isTakeClickPendingLabel.setText("TakeClickPend: " + m_board.isTakeClickPending());
         isTurnDoneLabel.setText("TurnDone: " + m_board.isTurnDone());
         turnWithoutMill.setText("turnWithoutMillCounter: "+m_board.getTurnWithoutMill());
-        
+        blackPlayerPoints.setText("Black Player Points: "+m_game.getBlackPlayerPoints());
+        whitePlayerPoints.setText("White Player Points: "+m_game.getwhitePlayerPoints());
+
     
         
     }

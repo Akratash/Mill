@@ -3,7 +3,7 @@ package ch.akratash.muehle.model;
 
 
 
-public class Board {
+public class Board extends Game {
 
 	/**
 	 * 3Dimensionales Array welches den Zustand der gesetzten Steine beinhaltet
@@ -19,8 +19,6 @@ public class Board {
 	private boolean m_isMill;
 	private boolean m_isPartOfMill;
 	private int m_turnWithoutMill;
-	private int m_playerWhitePoints;
-	private int m_playerBlackPoints;
 
 	
 
@@ -37,8 +35,6 @@ public class Board {
 		m_blackPlayerStonesLost = 0;
 		m_whitePlayerStonesLost = 0;
 		m_turnWithoutMill = 0;
-		m_playerBlackPoints = 0;
-		m_playerWhitePoints = 0;
 
 		m_gameOver = false;
 		m_isMill = false;
@@ -60,6 +56,8 @@ public class Board {
 	}
 
 	// Getter für die Steine der Spieler.
+
+
 	public int getStonesblack() {
 		return m_blackPlayerStones;
 	}
@@ -83,9 +81,11 @@ public class Board {
 	public void stoneCounterLost() {
 		if (m_activePlayer == Player.WHITE) {
 			m_blackPlayerStonesLost += 1;
+			gamePoints();
 		}
 		if (m_activePlayer == Player.BLACK) {
 			m_whitePlayerStonesLost += 1;
+			gamePoints();
 		}
 	}
 
@@ -448,9 +448,6 @@ public class Board {
 		
 		m_isMill=false;
 		result = true;
-		if(m_activePlayer==Player.WHITE){
-			
-		}
 		checkGameOver();
 		switchPlayer();
 
@@ -460,10 +457,10 @@ public class Board {
 
 	public void gamePoints(){
 		if(m_activePlayer == Player.WHITE){
-			m_playerWhitePoints +=10;
+			super.setWhitePlayerPoints(m_whitePlayerPoints+=10);
 		}
 		if(m_activePlayer == Player.BLACK){
-			m_playerBlackPoints +=10;
+			super.setBlackPlayerPoints(m_blackPlayerPoints+=10);
 		}
 	}
 	/*
@@ -549,21 +546,5 @@ public class Board {
 
 	public boolean isTurnDone() {
 		return m_turnDone;
-	}
-
-	public int getPlayerWhitePoints() {
-		return this.m_playerWhitePoints;
-	}
-
-	public void setPlayerWhitePoints(int m_playerWhitePoints) {
-		this.m_playerWhitePoints = m_playerWhitePoints;
-	}
-
-	public int getPlayerBlackPoints() {
-		return this.m_playerBlackPoints;
-	}
-
-	public void setPlayerBlackPoints(int m_playerBlackPoints) {
-		this.m_playerBlackPoints = m_playerBlackPoints;
 	}
 }

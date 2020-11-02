@@ -98,11 +98,13 @@
       <Label fx:id="isTakeClickPendingLabel" layoutX="32.0" layoutY="453.0" prefHeight="40.0" prefWidth="135.0" />
       <Label fx:id="isTurnDoneLabel1" layoutX="42.0" layoutY="503.0" prefHeight="40.0" prefWidth="135.0" />
       <Label fx:id="turnWithoutMill" layoutX="274.0" layoutY="36.0" prefHeight="40.0" prefWidth="268.0" />
-      <TableView fx:id="MainTable" layoutX="885.0" layoutY="176.0" prefHeight="200.0" prefWidth="153.0">
+      <TableView fx:id="MainTable" layoutX="885.0" layoutY="176.0" prefHeight="200.0" prefWidth="153.0" translateX="300.0">
         <columns>
           <TableColumn fx:id="playerName" prefWidth="75.0" text="Name" />
           <TableColumn fx:id="playerColor" prefWidth="75.0" text="Spieler" />
         </columns>
       </TableView>
+      <Label fx:id="blackPlayerPoints" layoutX="42.0" layoutY="266.0" prefHeight="40.0" prefWidth="227.0" translateX="900.0" />
+      <Label fx:id="whitePlayerPoints" layoutX="52.0" layoutY="276.0" prefHeight="40.0" prefWidth="215.0" translateX="900.0" translateY="100.0" />
    </children>
 </AnchorPane>
