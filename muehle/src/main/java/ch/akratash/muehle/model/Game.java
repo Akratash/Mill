@@ -4,9 +4,9 @@ public class Game {
 
     public static int m_whitePlayerPoints;
     public static int m_blackPlayerPoints;
-    private int m_bestOfRounds;
-    private String m_whitePlayerName;
-    private String m_blackPlayerName;
+    public static int m_bestOfRounds;
+    public static String m_whitePlayerName;
+    public static String m_blackPlayerName;
 
 
     
@@ -43,27 +43,27 @@ public class Game {
     }
 
     public int getBestOfRounds() {
-        return this.m_bestOfRounds;
+        return Game.m_bestOfRounds;
     }
 
     public void setBestOfRounds(int m_bestOfRounds) {
-        this.m_bestOfRounds = m_bestOfRounds;
+        Game.m_bestOfRounds = m_bestOfRounds;
     }
 
     public String getWhitePlayerName() {
-        return this.m_whitePlayerName;
+        return Game.m_whitePlayerName;
     }
 
     public void setWhitePlayerName(String m_whitePlayerName) {
-        this.m_whitePlayerName = m_whitePlayerName;
+        Game.m_whitePlayerName = m_whitePlayerName;
     }
 
     public String getBlackPlayerName() {
-        return this.m_blackPlayerName;
+        return Game.m_blackPlayerName;
     }
 
     public void setBlackPlayerName(String m_blackPlayerName) {
-        this.m_blackPlayerName = m_blackPlayerName;
+        Game.m_blackPlayerName = m_blackPlayerName;
     }
 
 

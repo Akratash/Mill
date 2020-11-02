@@ -10,10 +10,10 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="786.0" prefWidth="1413.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.akratash.muehle.control.Controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1980.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.akratash.muehle.control.Controller">
    <children>
-      <Button fx:id="sysout0" layoutX="860.0" layoutY="43.0" mnemonicParsing="false" onAction="#handleSysoutButtonAction" text="Zug beenden" />
-      <Button fx:id="testbutton" layoutX="87.0" layoutY="55.0" mnemonicParsing="false" onAction="#handleRowGridAction" text="New Round" />
+      <Button fx:id="sysout0" layoutX="1020.0" layoutY="650.0" mnemonicParsing="false" onAction="#handleSysoutButtonAction" text="Zug beenden" />
+      <Button fx:id="testbutton" layoutX="920.0" layoutY="650.0" mnemonicParsing="false" onAction="#handleRowGridAction" text="New Round" />
       <AnchorPane layoutX="24.0" layoutY="-230.0" prefHeight="200.0" prefWidth="200.0" />
       <Pane id="Pane" layoutX="186.0" layoutY="93.0" prefHeight="600.0" prefWidth="600.0" styleClass="bodybg" stylesheets="@application.css">
          <children>
@@ -97,14 +97,17 @@
       <Label fx:id="isTakeClickPendingLabel" layoutX="32.0" layoutY="453.0" prefHeight="40.0" prefWidth="135.0" />
       <Label fx:id="isTurnDoneLabel1" layoutX="42.0" layoutY="503.0" prefHeight="40.0" prefWidth="135.0" />
       <Label fx:id="turnWithoutMill" layoutX="274.0" layoutY="36.0" prefHeight="40.0" prefWidth="268.0" />
-      <Label fx:id="blackPlayerPoints" layoutX="42.0" layoutY="266.0" prefHeight="40.0" prefWidth="454.0" translateX="900.0">
+      <Label fx:id="blackPlayerPoints" layoutX="1000.0" layoutY="100.0" prefHeight="40.0" prefWidth="454.0">
          <font>
             <Font name="MS Gothic" size="24.0" />
          </font></Label>
-      <Label fx:id="whitePlayerPoints" layoutX="52.0" layoutY="276.0" prefHeight="40.0" prefWidth="454.0" translateX="900.0" translateY="100.0">
+      <Label fx:id="whitePlayerPoints" layoutX="1000.0" layoutY="200.0" prefHeight="40.0" prefWidth="454.0">
          <font>
             <Font name="MS Gothic" size="24.0" />
          </font></Label>
-      <Button fx:id="newgame" layoutX="97.0" layoutY="65.0" mnemonicParsing="false" onAction="#newGame" text="New Game" translateX="770.0" translateY="50.0" />
+      <Button fx:id="newgame" layoutX="1120.0" layoutY="650.0" mnemonicParsing="false" onAction="#newGame" text="New Game" />
+      <Button fx:id="setPlayerName" layoutX="800.0" layoutY="650.0" mnemonicParsing="false" onAction="#setPlayerName" text="Set Player Name" />
+      <Label fx:id="whitePlayer" layoutX="850.0" layoutY="400.0" prefHeight="40.0" prefWidth="135.0" />
+      <Label fx:id="blackPlayer" layoutX="850.0" layoutY="500.0" prefHeight="40.0" prefWidth="135.0" />
    </children>
 </AnchorPane>

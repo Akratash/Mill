@@ -1,6 +1,6 @@
 package ch.akratash.muehle.control;
 
-
+import java.util.Optional;
 
 import ch.akratash.muehle.model.Board;
 import ch.akratash.muehle.model.Player;
@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Paint;
@@ -34,12 +35,18 @@ public class Controller {
     public Label turnWithoutMill = new Label();
     public Label blackPlayerPoints = new Label();
     public Label whitePlayerPoints = new Label();
+    public Label whitePlayer = new Label();
+    public Label blackPlayer = new Label();
 
     public GridPane innerGrid = new GridPane();
     public GridPane midGrid = new GridPane();
     public GridPane outerGrid = new GridPane();
-    
 
+    @FXML
+    private void setPlayerName(ActionEvent event) {
+        setBlackPlayer();
+        setWhitePlayer();
+    }
 
     @FXML
     private void handleRowGridAction(ActionEvent event) {
@@ -55,7 +62,7 @@ public class Controller {
 
     @FXML
     private void handleSysoutButtonAction(ActionEvent event) {
-       m_board.endTurn();
+        m_board.endTurn();
     }
 
     private void renderGrids() {
@@ -157,12 +164,42 @@ public class Controller {
         isFirstClickPendingLabel.setText("FirstClickPend: " + m_board.isFirstClickPending());
         isTakeClickPendingLabel.setText("TakeClickPend: " + m_board.isTakeClickPending());
         isTurnDoneLabel.setText("TurnDone: " + m_board.isTurnDone());
-        turnWithoutMill.setText("turnWithoutMillCounter: "+m_board.getTurnWithoutMill());
-        blackPlayerPoints.setText("Black Player Points: "+m_game.getBlackPlayerPoints());
-        whitePlayerPoints.setText("White Player Points: "+m_game.getwhitePlayerPoints());
+        turnWithoutMill.setText("turnWithoutMillCounter: " + m_board.getTurnWithoutMill());
+        blackPlayerPoints.setText("Black Player Points: " + m_game.getBlackPlayerPoints());
+        whitePlayerPoints.setText("White Player Points: " + m_game.getwhitePlayerPoints());
+        whitePlayer.setText("White Player: " + m_game.getWhitePlayerName());
+        blackPlayer.setText("Black Player: " + m_game.getBlackPlayerName());
 
-    
-        
+    }
+
+    private void setBlackPlayer() {
+
+        TextInputDialog dialog = new TextInputDialog("Black");
+
+        dialog.setTitle("Black Player Name");
+        dialog.setHeaderText("Enter your name:");
+        dialog.setContentText("Name:");
+
+        Optional<String> result = dialog.showAndWait();
+
+        result.ifPresent(name -> {
+            this.m_game.setBlackPlayerName(name);
+        });
+    }
+
+    private void setWhitePlayer() {
+
+        TextInputDialog dialog = new TextInputDialog("WHITE");
+
+        dialog.setTitle("White Player Name");
+        dialog.setHeaderText("Enter your name:");
+        dialog.setContentText("Name:");
+
+        Optional<String> result = dialog.showAndWait();
+
+        result.ifPresent(name -> {
+            this.m_game.setWhitePlayerName(name);
+        });
     }
 
     @FXML
