@@ -3,7 +3,7 @@ package ch.akratash.muehle.model;
 
 
 
-public class Board extends Game {
+public class Board {
 
 	/**
 	 * 3Dimensionales Array welches den Zustand der gesetzten Steine beinhaltet

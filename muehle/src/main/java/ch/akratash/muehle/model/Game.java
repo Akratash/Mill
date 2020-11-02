@@ -13,8 +13,8 @@ public class Game {
     public Game(){
         
         m_bestOfRounds = 0;
-        m_whitePlayerPoints = 1000;
-        m_blackPlayerPoints = 100;
+        m_whitePlayerPoints = 0;
+        m_blackPlayerPoints = 0;
  
      }
  
