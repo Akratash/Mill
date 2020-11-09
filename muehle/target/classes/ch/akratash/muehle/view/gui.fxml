@@ -85,12 +85,18 @@
                </children>
             </GridPane>
          </children></Pane>
-      <Label fx:id="playerLabel" layoutX="422.0" layoutY="72.0" prefHeight="17.0" prefWidth="110.0" />
+      <Label fx:id="playerLabel" layoutX="451.0" layoutY="27.0" prefHeight="40.0" prefWidth="135.0">
+         <font>
+            <Font name="Microsoft Tai Le" size="25.0" />
+         </font></Label>
       <Label fx:id="stonesLostLabel" layoutX="794.0" layoutY="300.0" prefHeight="54.0" prefWidth="629.0">
          <font>
             <Font name="Impact" size="24.0" />
          </font></Label>
-      <Label fx:id="turnWithoutMill" layoutX="1086.0" layoutY="40.0" prefHeight="40.0" prefWidth="268.0" />
+      <Label fx:id="turnWithoutMill" layoutX="794.0" layoutY="27.0" prefHeight="40.0" prefWidth="268.0">
+         <font>
+            <Font name="Javanese Text" size="18.0" />
+         </font></Label>
       <Label fx:id="blackPlayerPoints" layoutX="1213.0" layoutY="136.0" prefHeight="40.0" prefWidth="317.0">
          <font>
             <Font name="MS Gothic" size="24.0" />
@@ -125,7 +131,7 @@
       <Label fx:id="bestOfRoundModeLabel" layoutX="1551.0" layoutY="27.0" prefHeight="40.0" prefWidth="294.0" />
       <Label fx:id="bestOfRoundBlackCountLabel" layoutX="1551.0" layoutY="80.0" prefHeight="40.0" prefWidth="294.0" />
       <Label fx:id="bestOfRoundWhiteCountLabel" layoutX="1551.0" layoutY="136.0" prefHeight="40.0" prefWidth="294.0" />
-      <Label fx:id="winnerLabel" layoutX="802.0" layoutY="219.0" prefHeight="40.0" prefWidth="135.0">
+      <Label fx:id="winnerLabel" layoutX="794.0" layoutY="219.0" prefHeight="65.0" prefWidth="492.0">
          <font>
             <Font name="Myanmar Text" size="27.0" />
          </font></Label>
