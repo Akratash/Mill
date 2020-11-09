@@ -60,7 +60,7 @@ public class Game {
         Game.m_bestOfRoundsWhite = m_bestOfRounds;
     }
 
-    public void setBestOfRoundsMode() {
+    public void setBestOfRoundsMode(int m_bestOfRoundsMode) {
         Game.m_bestOfRoundsMode = m_bestOfRoundsMode;
     }
 

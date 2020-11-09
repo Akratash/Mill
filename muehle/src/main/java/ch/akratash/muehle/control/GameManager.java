@@ -2,7 +2,6 @@ package ch.akratash.muehle.control;
 
 import ch.akratash.muehle.view.Gui;
 import javafx.application.Application;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;

@@ -122,14 +122,14 @@
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="172.0" prefWidth="107.0">
                <children>
-                  <Button fx:id="b3" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="3" />
-                  <Button fx:id="b5" layoutX="14.0" layoutY="64.0" mnemonicParsing="false" text="5" />
-                  <Button fx:id="b7" layoutX="14.0" layoutY="115.0" mnemonicParsing="false" text="7" />
+                  <Button fx:id="b3" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="3" onAction="#bestOfButton3"/>
+                  <Button fx:id="b5" layoutX="14.0" layoutY="64.0" mnemonicParsing="false" text="5" onAction="#bestOfButton5" />
+                  <Button fx:id="b7" layoutX="14.0" layoutY="115.0" mnemonicParsing="false" text="7" onAction="#bestOfButton7" />
                </children>
             </AnchorPane>
         </content>
       </TitledPane>
-      <Label fx:id="bestOfRoundModeLabel" layoutX="1551.0" layoutY="27.0" prefHeight="40.0" prefWidth="294.0" />
+      <Label fx:id="bestOfRoundModeLabel" layoutX="1551.0" layoutY="27.0" prefHeight="40.0" prefWidth="294.0"  />
       <Label fx:id="bestOfRoundBlackCountLabel" layoutX="1577.0" layoutY="80.0" prefHeight="40.0" prefWidth="268.0" />
       <Label fx:id="bestOfRoundWhiteCountLabel" layoutX="1545.0" layoutY="136.0" prefHeight="40.0" prefWidth="300.0" />
       <Label fx:id="winnerLabel" layoutX="1577.0" layoutY="643.0" prefHeight="40.0" prefWidth="135.0" />

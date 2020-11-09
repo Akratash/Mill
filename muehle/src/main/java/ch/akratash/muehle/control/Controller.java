@@ -57,7 +57,7 @@ public class Controller {
     //BESTOFBUTTONS
     @FXML
     private void bestOfButton3(ActionEvent event) {
-        m_board.bestOfRoundsMode3();
+        m_game.setBestOfRoundsMode(Game.m_bestOfRoundsMode);
         
     }
     @FXML
@@ -79,7 +79,6 @@ public class Controller {
     private void newGame(ActionEvent event) {
         m_game = new Game();
         renderGrids();
-        m_game.setBestOfRoundsMode();
     }
 
     @FXML
