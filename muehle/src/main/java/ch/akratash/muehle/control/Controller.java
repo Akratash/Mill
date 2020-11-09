@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.TitledPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Paint;
@@ -37,15 +38,35 @@ public class Controller {
     public Label whitePlayerPoints = new Label();
     public Label whitePlayer = new Label();
     public Label blackPlayer = new Label();
+    public Label bestOfRoundModeLabel = new Label();
+    public Label bestOfRoundBlackCountLabel = new Label();
+    public Label bestOfRoundWhiteCountLabel = new Label();
+    public Label WinnerLabel = new Label();
 
     public GridPane innerGrid = new GridPane();
     public GridPane midGrid = new GridPane();
     public GridPane outerGrid = new GridPane();
+    public TitledPane bestOfMode = new TitledPane();
 
     @FXML
     private void setPlayerName(ActionEvent event) {
-        setBlackPlayer();
         setWhitePlayer();
+        setBlackPlayer();
+    }
+
+    //BESTOFBUTTONS
+    @FXML
+    private void bestOfButton3(ActionEvent event) {
+        m_board.bestOfRoundsMode3();
+        
+    }
+    @FXML
+    private void bestOfButton5(ActionEvent event) {
+        m_board.bestOfRoundsMode5();
+    }
+    @FXML
+    private void bestOfButton7(ActionEvent event) {
+        m_board.bestOfRoundsMode7();
     }
 
     @FXML
@@ -58,6 +79,7 @@ public class Controller {
     private void newGame(ActionEvent event) {
         m_game = new Game();
         renderGrids();
+        m_game.setBestOfRoundsMode();
     }
 
     @FXML
@@ -169,8 +191,14 @@ public class Controller {
         whitePlayerPoints.setText("White Player Points: " + m_game.getwhitePlayerPoints());
         whitePlayer.setText("White Player: " + m_game.getWhitePlayerName());
         blackPlayer.setText("Black Player: " + m_game.getBlackPlayerName());
+        bestOfRoundModeLabel.setText("BestOfMode: "+m_game.getBestOfRoundsMode());
+        bestOfRoundBlackCountLabel.setText("Round Wins of Black Player: "+m_game.getBestOfRoundsBlack());
+        bestOfRoundWhiteCountLabel.setText("Round Wins of White Player: "+m_game.getBestOfRoundsWhite());
+        WinnerLabel.setText("Winner is: "+m_board.getWinner());
+
 
     }
+    
 
     private void setBlackPlayer() {
 
@@ -187,6 +215,7 @@ public class Controller {
         });
     }
 
+
     private void setWhitePlayer() {
 
         TextInputDialog dialog = new TextInputDialog("WHITE");
@@ -201,6 +230,7 @@ public class Controller {
             this.m_game.setWhitePlayerName(name);
         });
     }
+
 
     @FXML
     private void handleRowGridIndexAction00(MouseEvent event) {
@@ -415,4 +445,5 @@ public class Controller {
         renderGrids();
         renderLabels();
     }
+
 }

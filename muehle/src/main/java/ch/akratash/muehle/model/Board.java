@@ -19,6 +19,7 @@ public class Board {
 	private boolean m_isMill;
 	private boolean m_isPartOfMill;
 	private int m_turnWithoutMill;
+	private Player m_bestOfRoundWinner;
 
 	
 
@@ -42,6 +43,7 @@ public class Board {
 		m_grid = new Player[3][3][3];
 		m_activePlayer = Player.WHITE;
 		m_winner = Player.NONE;
+		m_bestOfRoundWinner = Player.NONE;
 
 		/**
 		 * überschreiben der NULL Werte im Array auf den Zustand NONE
@@ -282,9 +284,13 @@ public class Board {
 		if(m_blackPlayerStonesLost > 6){
 			m_gameOver = true;
 			m_winner = Player.WHITE;
+			roundPoints();
+			bestOfRoundsCounter();
 		} else if (m_whitePlayerStonesLost > 6){
 			m_gameOver = true;
 			m_winner = Player.BLACK;
+			roundPoints();
+			bestOfRoundsCounter();
 		} else if (m_turnWithoutMill == 40){
 			m_gameOver = true;
 			m_winner = Player.DRAW;
@@ -455,12 +461,74 @@ public class Board {
 	}
 
 
+	public void bestOfRoundsCounter(){
+		if (m_gameOver){
+			if(m_winner==Player.BLACK){
+				Game.m_bestOfRoundsBlack+=1;
+			}
+			if(m_winner==Player.WHITE){
+				Game.m_bestOfRoundsWhite+=1;
+			}
+		}
+	}
+
+	public void bestOfRoundsMode3(){
+		Game.m_bestOfRoundsMode=3;
+	}
+
+	public void bestOfRoundsMode5(){
+		Game.m_bestOfRoundsMode=5;
+	}
+
+	public void bestOfRoundsMode7(){
+		Game.m_bestOfRoundsMode=7;
+	}
+
+	public void bestOfRoundsWinner(){
+		if(Game.m_bestOfRoundsMode==3){
+			if(Game.m_bestOfRoundsBlack==2){
+				m_bestOfRoundWinner=Player.BLACK;
+			}
+			if(Game.m_bestOfRoundsWhite==2){
+				m_bestOfRoundWinner=Player.WHITE;
+			}
+		}
+
+		if(Game.m_bestOfRoundsMode==5){
+			if(Game.m_bestOfRoundsBlack==3){
+				m_bestOfRoundWinner=Player.BLACK;
+			}
+			if(Game.m_bestOfRoundsWhite==3){
+				m_bestOfRoundWinner=Player.WHITE;
+			}
+		}
+
+		if(Game.m_bestOfRoundsMode==7){
+			if(Game.m_bestOfRoundsBlack==4){
+				m_bestOfRoundWinner=Player.BLACK;
+			}
+			if(Game.m_bestOfRoundsWhite==4){
+				m_bestOfRoundWinner=Player.WHITE;
+			}
+		}
+	}
+
+
 	public void gamePoints(){
 		if(m_activePlayer == Player.WHITE){
 			Game.m_whitePlayerPoints+=10;
 		}
 		if(m_activePlayer == Player.BLACK){
 			Game.m_blackPlayerPoints+=10;
+		}
+	}
+
+	public void roundPoints(){
+		if(m_winner==Player.BLACK){
+			Game.m_blackRoundPoints+=1;
+		}
+		if(m_winner==Player.WHITE){
+			Game.m_whiteRoundPoints+=1;
 		}
 	}
 	/*
@@ -473,6 +541,10 @@ public class Board {
 
 	public Player getWinner() {
 		return m_winner;
+	}
+	
+	public Player getBestOfRoundWinner(){
+		return m_bestOfRoundWinner;
 	}
 
 	public boolean isActiveMill(){
