@@ -85,35 +85,28 @@
                </children>
             </GridPane>
          </children></Pane>
-      <Label fx:id="playerLabel" layoutX="703.0" layoutY="47.0" prefHeight="17.0" prefWidth="110.0" />
-      <Label fx:id="stonesLostLabel" layoutX="431.0" layoutY="47.0" prefHeight="17.0" prefWidth="110.0" />
-      <Label fx:id="winnerLabel" layoutX="32.0" layoutY="136.0" prefHeight="40.0" prefWidth="135.0" />
-      <Label fx:id="blackPlayerStonesLostLabel" layoutX="32.0" layoutY="176.0" prefHeight="40.0" prefWidth="135.0" />
-      <Label fx:id="whitePlayerStonesLostLabel" layoutX="32.0" layoutY="216.0" prefHeight="40.0" prefWidth="135.0" />
-      <Label fx:id="blackPlayerStonesLabel" layoutX="32.0" layoutY="256.0" prefHeight="40.0" prefWidth="135.0" />
-      <Label fx:id="whitePlayerStonesLabel" layoutX="32.0" layoutY="296.0" prefHeight="40.0" prefWidth="135.0" />
-      <Label fx:id="isGameOverLabel" layoutX="32.0" layoutY="336.0" prefHeight="40.0" prefWidth="135.0" />
-      <Label fx:id="isMillLabel" layoutX="32.0" layoutY="373.0" prefHeight="40.0" prefWidth="135.0" />
-      <Label fx:id="isFirstClickPendingLabel" layoutX="32.0" layoutY="413.0" prefHeight="40.0" prefWidth="135.0" />
-      <Label fx:id="isTakeClickPendingLabel" layoutX="32.0" layoutY="453.0" prefHeight="40.0" prefWidth="135.0" />
-      <Label fx:id="isTurnDoneLabel1" layoutX="42.0" layoutY="503.0" prefHeight="40.0" prefWidth="135.0" />
-      <Label fx:id="turnWithoutMill" layoutX="274.0" layoutY="36.0" prefHeight="40.0" prefWidth="268.0" />
-      <Label fx:id="blackPlayerPoints" layoutX="1000.0" layoutY="100.0" prefHeight="40.0" prefWidth="454.0">
+      <Label fx:id="playerLabel" layoutX="422.0" layoutY="72.0" prefHeight="17.0" prefWidth="110.0" />
+      <Label fx:id="stonesLostLabel" layoutX="794.0" layoutY="300.0" prefHeight="54.0" prefWidth="629.0">
+         <font>
+            <Font name="Impact" size="24.0" />
+         </font></Label>
+      <Label fx:id="turnWithoutMill" layoutX="1086.0" layoutY="40.0" prefHeight="40.0" prefWidth="268.0" />
+      <Label fx:id="blackPlayerPoints" layoutX="1213.0" layoutY="136.0" prefHeight="40.0" prefWidth="317.0">
          <font>
             <Font name="MS Gothic" size="24.0" />
          </font></Label>
-      <Label fx:id="whitePlayerPoints" layoutX="1000.0" layoutY="200.0" prefHeight="40.0" prefWidth="454.0">
+      <Label fx:id="whitePlayerPoints" layoutX="1210.0" layoutY="93.0" prefHeight="40.0" prefWidth="317.0">
          <font>
             <Font name="MS Gothic" size="24.0" />
          </font></Label>
       <Button fx:id="newgame" layoutX="1120.0" layoutY="650.0" mnemonicParsing="false" onAction="#newGame" text="New Game" />
       <Button fx:id="setPlayerName" layoutX="800.0" layoutY="650.0" mnemonicParsing="false" onAction="#setPlayerName" text="Set Player Name" />
-      <Label fx:id="whitePlayer" layoutX="850.0" layoutY="400.0" prefHeight="40.0" prefWidth="437.0">
+      <Label fx:id="whitePlayer" layoutX="802.0" layoutY="93.0" prefHeight="40.0" prefWidth="410.0">
          <font>
             <Font name="Malgun Gothic" size="24.0" />
          </font>
       </Label>
-      <Label fx:id="blackPlayer" layoutX="850.0" layoutY="500.0" prefHeight="40.0" prefWidth="464.0">
+      <Label fx:id="blackPlayer" layoutX="802.0" layoutY="136.0" prefHeight="40.0" prefWidth="410.0">
          <font>
             <Font name="Malgun Gothic" size="24.0" />
          </font>
@@ -122,16 +115,19 @@
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="172.0" prefWidth="107.0">
                <children>
-                  <Button fx:id="b3" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="3" onAction="#bestOfButton3"/>
-                  <Button fx:id="b5" layoutX="14.0" layoutY="64.0" mnemonicParsing="false" text="5" onAction="#bestOfButton5" />
-                  <Button fx:id="b7" layoutX="14.0" layoutY="115.0" mnemonicParsing="false" text="7" onAction="#bestOfButton7" />
+                  <Button fx:id="b3" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#bestOfButton3" text="3" />
+                  <Button fx:id="b5" layoutX="14.0" layoutY="64.0" mnemonicParsing="false" text="5" />
+                  <Button fx:id="b7" layoutX="14.0" layoutY="115.0" mnemonicParsing="false" text="7" />
                </children>
             </AnchorPane>
         </content>
       </TitledPane>
-      <Label fx:id="bestOfRoundModeLabel" layoutX="1551.0" layoutY="27.0" prefHeight="40.0" prefWidth="294.0"  />
-      <Label fx:id="bestOfRoundBlackCountLabel" layoutX="1577.0" layoutY="80.0" prefHeight="40.0" prefWidth="268.0" />
-      <Label fx:id="bestOfRoundWhiteCountLabel" layoutX="1545.0" layoutY="136.0" prefHeight="40.0" prefWidth="300.0" />
-      <Label fx:id="winnerLabel" layoutX="1577.0" layoutY="643.0" prefHeight="40.0" prefWidth="135.0" />
+      <Label fx:id="bestOfRoundModeLabel" layoutX="1551.0" layoutY="27.0" prefHeight="40.0" prefWidth="294.0" />
+      <Label fx:id="bestOfRoundBlackCountLabel" layoutX="1551.0" layoutY="80.0" prefHeight="40.0" prefWidth="294.0" />
+      <Label fx:id="bestOfRoundWhiteCountLabel" layoutX="1551.0" layoutY="136.0" prefHeight="40.0" prefWidth="294.0" />
+      <Label fx:id="winnerLabel" layoutX="802.0" layoutY="219.0" prefHeight="40.0" prefWidth="135.0">
+         <font>
+            <Font name="Myanmar Text" size="27.0" />
+         </font></Label>
    </children>
 </AnchorPane>

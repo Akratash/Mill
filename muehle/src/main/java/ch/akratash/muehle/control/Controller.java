@@ -194,7 +194,7 @@ public class Controller {
         bestOfRoundBlackCountLabel.setText("Round Wins of Black Player: "+m_game.getBestOfRoundsBlack());
         bestOfRoundWhiteCountLabel.setText("Round Wins of White Player: "+m_game.getBestOfRoundsWhite());
         WinnerLabel.setText("Winner is: "+m_board.getWinner());
-
+        stonesLostLabel.setText("Anzahl Steine verloren"+m_board.getActivePlayer()+": "+m_board.getBlackPlayerStonesLost());
 
     }
     
